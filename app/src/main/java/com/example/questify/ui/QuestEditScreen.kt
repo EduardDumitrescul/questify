@@ -311,56 +311,6 @@ fun QuestEditRow(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TextFieldDialog(
-    label: String,
-    initialText: String,
-    onDismissRequest: () -> Unit,
-    onComplete: (String) -> Unit,
-    singleLine: Boolean = false,
-) {
-    var textFieldValue by remember { mutableStateOf(initialText) }
-    Dialog(
-        onDismissRequest = onDismissRequest,
-        properties = DialogProperties(false, false)
-    ) {
-        Column(
-            modifier = Modifier
-                .clip(shape = AppTheme.shapes.medium)
-                .shadow(elevation = 6.dp, clip = true)
-                .background(color = AppTheme.colorScheme.surface)
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 8.dp, top = 16.dp)
-        ) {
-            OutlinedTextField(
-                value = textFieldValue,
-                onValueChange = {
-                    textFieldValue = it
-                },
-                shape = AppTheme.shapes.small,
-                label = {Text(label)},
-                singleLine = singleLine,
-                modifier = if(singleLine) Modifier else Modifier.height(120.dp)
-            )
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                 modifier = Modifier.fillMaxWidth()
-            ) {
-                TextButton(onClick = {
-                    onComplete(textFieldValue)
-                }) {
-                    Text(
-                        text = stringResource(id = R.string.ok),
-                        style = AppTheme.typography.titleMedium
-                    )
-                }
-            }
-        }
-    }
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
@@ -624,12 +574,6 @@ fun TwoButtonDialog(
     }
 }
 
-
-@Preview
-@Composable
-fun PreviewTextFieldDialog() {
-    TextFieldDialog(initialText = "initial text", onDismissRequest = {  }, label = "Label", onComplete = {})
-}
 
 @Preview
 @Composable
