@@ -100,7 +100,8 @@ fun QuestEditScreen(
     questModel.value?.let {quest ->
         StatelessQuestEditScreen(
             questModel = quest,
-            onNameClick = {showNameDialog = true}
+            onNameClick = {showNameDialog = true},
+            onDescriptionClick = {showDescriptionDialog = true},
         )
         if(showNameDialog) {
             NameInputDialog(
@@ -111,14 +112,10 @@ fun QuestEditScreen(
         }
 
         if(showDescriptionDialog) {
-            TextFieldDialog(
-                label = stringResource(id = R.string.description),
-                initialText = quest.description,
-                onDismissRequest = { showDescriptionDialog = false },
-                onComplete = {
-                    viewModel.updateQuest(quest.apply {description = it})
-                    showDescriptionDialog = false
-                }
+            DescriptionInputDialog(
+                initialValue = quest.description,
+                onDismissRequest = { showDescriptionDialog = false},
+                save = {viewModel.updateQuest(quest.apply {description=it})}
             )
         }
     }
@@ -131,6 +128,7 @@ fun StatelessQuestEditScreen(
     questModel: QuestModel,
     modifier: Modifier = Modifier,
     onNameClick: () -> Unit = {},
+    onDescriptionClick: () -> Unit = {},
 ) {
 
     Scaffold(
@@ -176,6 +174,7 @@ fun StatelessQuestEditScreen(
                     leadingContentDescription = stringResource(id = R.string.description),
                     text = stringResource(id = R.string.description),
                     trailingText = questModel.description,
+                    modifier = Modifier.clickable{ onDescriptionClick() }
                 )
                 QuestEditRow(
                     leadingImageVector = Icons.Outlined.Flag,
@@ -367,7 +366,7 @@ fun TextFieldDialog(
 @Preview
 @Composable
 fun NameInputDialog(
-    initialValue: String = "test",
+    initialValue: String = "",
     onDismissRequest: () -> Unit = {},
     save: (String) -> Unit = {},
 ) {
@@ -394,6 +393,61 @@ fun NameInputDialog(
             singleLine = true,
             enabled = true,
             modifier = Modifier
+                .padding(vertical = 8.dp, horizontal = 16.dp)
+                .defaultMinSize(minHeight = 0.dp)
+                .focusRequester(focusRequester)
+                .onFocusChanged { focusState ->
+                    if (focusState.isFocused) {
+                        val text = value.text
+                        value = value.copy(
+                            selection = TextRange(0, text.length)
+                        )
+                    }
+                },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = AppTheme.colorScheme.primary,
+                unfocusedBorderColor = AppTheme.colorScheme.primary,
+                focusedLabelColor = AppTheme.colorScheme.primary
+            ),
+        )
+    }
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun DescriptionInputDialog(
+    initialValue: String = "",
+    onDismissRequest: () -> Unit = {},
+    save: (String) -> Unit = {},
+) {
+    var value by remember {
+        mutableStateOf(TextFieldValue(initialValue))
+    }
+    val focusRequester = remember { FocusRequester() }
+
+    TwoButtonDialog(
+        onDismissRequest = onDismissRequest,
+        onCancel = onDismissRequest,
+        onComplete = {
+            save(value.text)
+            onDismissRequest()
+        }
+    ) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = {
+                value = it
+            },
+            shape = AppTheme.shapes.small,
+            label = { Text(stringResource(R.string.description)) },
+            singleLine = false,
+            enabled = true,
+            modifier = Modifier
+                .height(120.dp)
                 .padding(vertical = 8.dp, horizontal = 16.dp)
                 .defaultMinSize(minHeight = 0.dp)
                 .focusRequester(focusRequester)
