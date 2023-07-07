@@ -1,8 +1,6 @@
 package com.example.questify.ui
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,27 +19,20 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
-import androidx.compose.material.icons.outlined.Backspace
 import androidx.compose.material.icons.outlined.Checklist
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Flag
-import androidx.compose.material.icons.outlined.KeyboardBackspace
 import androidx.compose.material.icons.outlined.Remove
 import androidx.compose.material.icons.outlined.Today
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -51,9 +42,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.internal.enableLiveLiterals
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -64,12 +53,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -79,13 +65,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
 import com.example.questify.QuestEditViewModel
 import com.example.questify.R
 import com.example.questify.data.QuestModel
-import org.w3c.dom.Text
 
 @Composable
 fun QuestEditScreen(
@@ -96,12 +80,14 @@ fun QuestEditScreen(
 
     var showNameDialog by remember { mutableStateOf(false)}
     var showDescriptionDialog by remember { mutableStateOf(false)}
+    var showTargetDialog by remember { mutableStateOf(false)}
 
     questModel.value?.let {quest ->
         StatelessQuestEditScreen(
             questModel = quest,
             onNameClick = {showNameDialog = true},
             onDescriptionClick = {showDescriptionDialog = true},
+            onTargetClick = {showTargetDialog = true},
         )
         if(showNameDialog) {
             NameInputDialog(
@@ -118,6 +104,13 @@ fun QuestEditScreen(
                 save = {viewModel.updateQuest(quest.apply {description=it})}
             )
         }
+        if(showTargetDialog) {
+            NumberInputDialog(
+                initialValue = quest.target,
+                onDismissRequest = {showTargetDialog = false},
+                save = {viewModel.updateQuest(quest.apply {target=it})}
+            )
+        }
     }
 
 }
@@ -129,6 +122,7 @@ fun StatelessQuestEditScreen(
     modifier: Modifier = Modifier,
     onNameClick: () -> Unit = {},
     onDescriptionClick: () -> Unit = {},
+    onTargetClick: () -> Unit = {},
 ) {
 
     Scaffold(
@@ -181,7 +175,8 @@ fun StatelessQuestEditScreen(
                     leadingContentDescription = stringResource(id = R.string.target_reps),
                     text = stringResource(id = R.string.target_reps),
                     trailingText = questModel.target.toString(),
-                    trailingTextType = EditTextType.FullColored
+                    trailingTextType = EditTextType.FullColored,
+                    modifier = Modifier.clickable { onTargetClick() }
                 )
                 QuestEditRow(
                     leadingImageVector = Icons.Outlined.Checklist,
@@ -429,13 +424,20 @@ fun NumberInputDialog(
     onDismissRequest: () -> Unit = {},
     save: (Int) -> Unit = {},
 ) {
-    var value by remember { mutableIntStateOf(initialValue)}
+    var value by remember { mutableStateOf(TextFieldValue(initialValue.toString()))}
+    val focusRequester = remember { FocusRequester() }
+
     TwoButtonDialog(
         onDismissRequest = onDismissRequest,
         onCancel = onDismissRequest,
         onComplete = {
             onDismissRequest()
-            save(value)
+            if(value.text == "") {
+                save(0)
+            }
+            else {
+                save(value.text.toInt())
+            }
         }
     ) {
         Row(
@@ -446,7 +448,7 @@ fun NumberInputDialog(
                 .height(48.dp)
         ) {
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = { if(value.text.toInt() > 0) value = value.copy(text = (value.text.toInt() - 1).toString()) },
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp))
                     .background(AppTheme.colorScheme.primaryContainer)
@@ -465,15 +467,24 @@ fun NumberInputDialog(
                 color = AppTheme.colorScheme.primary.copy(alpha = 0.4f)
             )
             OutlinedTextField(
-                value = value.toString(),
+                value = value,
                 onValueChange = {
-                    value = it.toInt()
+                    value = it
                 },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.NumberPassword
                 ),
                 visualTransformation = VisualTransformation.None ,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f)
+                    .focusRequester(focusRequester)
+                    .onFocusChanged { focusState ->
+                        if (focusState.isFocused) {
+                            val text = value.text
+                            value = value.copy(
+                                selection = TextRange(0, text.length)
+                            )
+                        }
+                    },
                 shape = CutCornerShape(0.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     containerColor = AppTheme.colorScheme.primaryContainer,
@@ -492,7 +503,7 @@ fun NumberInputDialog(
                 color = AppTheme.colorScheme.primary.copy(alpha = 0.4f)
             )
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = { value = value.copy(text = (value.text.toInt() + 1).toString()) },
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp))
                     .background(AppTheme.colorScheme.primaryContainer)
@@ -505,6 +516,9 @@ fun NumberInputDialog(
                 )
             }
         }
+    }
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
     }
 }
 

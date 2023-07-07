@@ -9,7 +9,7 @@ data class QuestModel(
     val id: UUID = UUID.randomUUID(),
     var name: String = "Base Quest",
     var description: String = "",
-    val target: Int = 0,
+    var target: Int = 0,
     val hasRequirements: Boolean = false,
     val requirementTime: Int = 0, // minutes
     val type: Type = Type.RepTarget,
