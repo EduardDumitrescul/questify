@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Questify</string>
+    <string name="quest_check">Quest Checked</string>
+    <string name="quest_expand">expand</string>
+    <string name="add_rep">+1</string>
+    <string name="remove_rep">-1</string>
+    <string name="edit">Edit</string>
+    <string name="reps_today">reps (today)</string>
+    <string name="description">Description</string>
+    <string name="deadline">Deadline</string>
+    <string name="status">Status</string>
+    <string name="time_remaining">Time remaining</string>
+    <string name="target">"Target "</string>
+    <string name="open">Open</string>
+    <string name="name">Name</string>
+    <string name="habit_name">Habit name</string>
+    <string name="target_reps">Target reps</string>
+    <string name="rep_min_requirement">Rep requirements</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="back">Back</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+</resources>
