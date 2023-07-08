@@ -10,14 +10,13 @@ data class QuestModel(
     var name: String = "Base Quest",
     var description: String = "",
     var target: Int = 0,
-    val hasRequirements: Boolean = false,
-    val requirementTime: Int = 0, // minutes
-    val type: Type = Type.RepTarget,
+    var requirementTime: Int = 0,
+//    val type: Type = Type.RepTarget,
     val dateCreated: Date = Date(),
     val hasEnded: Boolean = false,
     val dateEnded: Date = Date(),
     val hasDeadline: Boolean = false,
-    val deadline: Date = Date(),
+    var deadline: Int = 0,
 ) {
 
     companion object {
@@ -44,8 +43,8 @@ data class QuestModel(
 
     fun getDateEndedFormatted(): String = if (hasEnded) formatDate(dateEnded) else "still active"
 
-    fun getDeadlineFormatted(): String = if(hasDeadline) formatDate(deadline) else "none"
+    fun getDeadlineFormatted(): String = if(deadline > 0) "TODO" else "none"
 
-    fun getRepRequirements(): String = if(hasRequirements) "$requirementTime min" else "none"
+    fun getRepRequirements(): String = if(requirementTime > 0) "$requirementTime min" else "none"
 
 }
