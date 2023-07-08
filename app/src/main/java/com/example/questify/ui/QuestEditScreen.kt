@@ -60,7 +60,7 @@ fun QuestEditScreen() {
         if(showNameDialog) {
             TextInputDialog(
                 initialValue = quest.name,
-                label = { Text(text = stringResource(id = R.string.habit_name))},
+                label = { Text(text = stringResource(id = R.string.quest_name))},
                 singleLine = true,
                 onDismissRequest = {showNameDialog = false},
                 save = {viewModel.updateQuest(quest.apply {name = it})}
@@ -130,8 +130,8 @@ fun StatelessQuestEditScreen(
             item {
                 QuestRow(
                     leadingImageVector = Icons.Outlined.Edit,
-                    leadingContentDescription = stringResource(id = R.string.habit_name),
-                    text = stringResource(id = R.string.habit_name),
+                    leadingContentDescription = stringResource(id = R.string.quest_name),
+                    text = stringResource(id = R.string.quest_name),
                     trailingText = questModel.name,
                     modifier = Modifier.clickable { onNameClick() }
                 )
