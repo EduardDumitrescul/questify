@@ -50,7 +50,7 @@ fun QuestRow(
         )
         Row(
             modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 16.dp)
+                .padding(horizontal = 8.dp)
                 .padding(end = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -59,7 +59,9 @@ fun QuestRow(
                 contentDescription = leadingContentDescription,
                 tint = AppTheme.colorScheme.primary,
                 modifier = Modifier
+                    .padding(vertical = 16.dp)
                     .size(24.dp)
+
             )
             Text(
                 text = text,
