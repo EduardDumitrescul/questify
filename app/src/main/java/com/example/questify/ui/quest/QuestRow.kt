@@ -39,19 +39,16 @@ fun QuestRow(
     trailingTextType: EditTextType = EditTextType.Normal,
     modifier: Modifier = Modifier,
 ) {
-
+    Divider(
+        color = AppTheme.colorScheme.outline.copy(alpha = 0.2f)
+    )
     Surface(
         modifier = modifier
     )
     {
-
-        Divider(
-            color = AppTheme.colorScheme.outline.copy(alpha = 0.2f)
-        )
         Row(
             modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .padding(end = 16.dp),
+                .padding(start = 8.dp, end = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -59,7 +56,6 @@ fun QuestRow(
                 contentDescription = leadingContentDescription,
                 tint = AppTheme.colorScheme.primary,
                 modifier = Modifier
-                    .padding(vertical = 16.dp)
                     .size(24.dp)
 
             )
