@@ -9,4 +9,8 @@ class OverviewViewModel: ViewModel() {
     private val dataSource = QuestDataSource()
 
     val quests: LiveData<List<QuestModel>> = dataSource.getQuests()
+
+    fun addQuest(quest: QuestModel) {
+        dataSource.insertQuest(quest)
+    }
 }
