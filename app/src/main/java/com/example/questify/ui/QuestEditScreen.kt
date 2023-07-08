@@ -134,6 +134,7 @@ fun StatelessQuestEditScreen(
                     text = stringResource(id = R.string.quest_name),
                     trailingText = questModel.name,
                     modifier = Modifier.clickable { onNameClick() }
+                        .padding(vertical = 16.dp)
                 )
                 QuestRow(
                     leadingImageVector = Icons.Outlined.Description,
@@ -141,6 +142,7 @@ fun StatelessQuestEditScreen(
                     text = stringResource(id = R.string.description),
                     trailingText = questModel.description,
                     modifier = Modifier.clickable{ onDescriptionClick() }
+                        .padding(vertical = 16.dp)
                 )
                 QuestRow(
                     leadingImageVector = Icons.Outlined.Flag,
@@ -149,13 +151,16 @@ fun StatelessQuestEditScreen(
                     trailingText = questModel.target.toString(),
                     trailingTextType = EditTextType.FullColored,
                     modifier = Modifier.clickable { onTargetClick() }
+                        .padding(vertical = 16.dp)
                 )
                 QuestRow(
                     leadingImageVector = Icons.Outlined.Checklist,
                     leadingContentDescription = stringResource(id = R.string.rep_min_requirement),
                     text = stringResource(id = R.string.rep_min_requirement),
                     trailingText = questModel.getRepRequirements(),
-                    trailingTextType = if(questModel.hasRequirements) EditTextType.FullColored else EditTextType.Normal,
+                    trailingTextType = if(questModel.requirementTime > 0) EditTextType.FullColored else EditTextType.Normal,
+                    modifier = Modifier
+                        .padding(vertical = 16.dp),
                 )
                 QuestRow(
                     leadingImageVector = Icons.Outlined.Today,
@@ -163,6 +168,8 @@ fun StatelessQuestEditScreen(
                     text = stringResource(id = R.string.start_date),
                     trailingText = questModel.getDateCreatedFormatted(),
                     trailingTextType = EditTextType.FullColored,
+                    modifier = Modifier
+                        .padding(vertical = 16.dp),
                 )
                 QuestRow(
                     leadingImageVector = Icons.Outlined.Event,
@@ -170,6 +177,8 @@ fun StatelessQuestEditScreen(
                     text = stringResource(id = R.string.deadline),
                     trailingText = questModel.getDeadlineFormatted(),
                     trailingTextType = if(questModel.hasDeadline) EditTextType.FullColored else EditTextType.Normal,
+                    modifier = Modifier
+                        .padding(vertical = 16.dp),
                 )
             }
         }
