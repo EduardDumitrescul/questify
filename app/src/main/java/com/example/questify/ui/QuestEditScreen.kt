@@ -34,6 +34,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -156,21 +157,21 @@ fun StatelessQuestEditScreen(
             modifier = Modifier.padding(it)
         ) {
             item {
-                QuestEditRow(
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Edit,
                     leadingContentDescription = stringResource(id = R.string.habit_name),
                     text = stringResource(id = R.string.habit_name),
                     trailingText = questModel.name,
                     modifier = Modifier.clickable { onNameClick() }
                 )
-                QuestEditRow(
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Description,
                     leadingContentDescription = stringResource(id = R.string.description),
                     text = stringResource(id = R.string.description),
                     trailingText = questModel.description,
                     modifier = Modifier.clickable{ onDescriptionClick() }
                 )
-                QuestEditRow(
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Flag,
                     leadingContentDescription = stringResource(id = R.string.target_reps),
                     text = stringResource(id = R.string.target_reps),
@@ -178,21 +179,21 @@ fun StatelessQuestEditScreen(
                     trailingTextType = EditTextType.FullColored,
                     modifier = Modifier.clickable { onTargetClick() }
                 )
-                QuestEditRow(
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Checklist,
                     leadingContentDescription = stringResource(id = R.string.rep_min_requirement),
                     text = stringResource(id = R.string.rep_min_requirement),
                     trailingText = questModel.getRepRequirements(),
                     trailingTextType = if(questModel.hasRequirements) EditTextType.FullColored else EditTextType.Normal,
                 )
-                QuestEditRow(
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Today,
                     leadingContentDescription = stringResource(id = R.string.start_date),
                     text = stringResource(id = R.string.start_date),
                     trailingText = questModel.getDateCreatedFormatted(),
                     trailingTextType = EditTextType.FullColored,
                 )
-                QuestEditRow(
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Event,
                     leadingContentDescription = stringResource(id = R.string.deadline),
                     text = stringResource(id = R.string.deadline),
@@ -211,7 +212,7 @@ enum class EditTextType {
 }
 
 @Composable
-fun QuestEditRow(
+fun QuestRow(
     leadingImageVector: ImageVector,
     leadingContentDescription: String,
     text: String,
@@ -445,13 +446,14 @@ fun NumberInputDialog(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .padding(8.dp)
-                .height(48.dp)
+                .height(56.dp)
         ) {
             IconButton(
                 onClick = { if(value.text.toInt() > 0) value = value.copy(text = (value.text.toInt() - 1).toString()) },
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp))
                     .background(AppTheme.colorScheme.primaryContainer)
+                    .size(56.dp)
             )
             {
                 Icon(
@@ -486,9 +488,11 @@ fun NumberInputDialog(
                         }
                     },
                 shape = CutCornerShape(0.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = AppTheme.colorScheme.primaryContainer,
-                    textColor = AppTheme.colorScheme.primary,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = AppTheme.colorScheme.primaryContainer,
+                    unfocusedContainerColor = AppTheme.colorScheme.primaryContainer,
+                    focusedTextColor = AppTheme.colorScheme.primary,
+                    unfocusedTextColor = AppTheme.colorScheme.primary,
                     focusedBorderColor = AppTheme.colorScheme.primaryContainer,
                     unfocusedBorderColor = AppTheme.colorScheme.primaryContainer,
                     cursorColor = AppTheme.colorScheme.primary
@@ -507,6 +511,7 @@ fun NumberInputDialog(
                 modifier = Modifier
                     .clip(shape = RoundedCornerShape(topEnd = 12.dp, bottomEnd = 12.dp))
                     .background(AppTheme.colorScheme.primaryContainer)
+                    .size(56.dp)
             )
             {
                 Icon(
@@ -537,7 +542,7 @@ fun TwoButtonDialog(
             modifier = Modifier
                 .clip(shape = AppTheme.shapes.medium)
                 .shadow(elevation = 6.dp, clip = true)
-                .width(200.dp)
+                .width(240.dp)
                 .background(AppTheme.colorScheme.surface),
         ) {
             content()
