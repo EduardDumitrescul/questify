@@ -1,6 +1,7 @@
 package com.example.questify.ui.quest
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +16,8 @@ import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Repeat
 import androidx.compose.material.icons.outlined.Timelapse
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -69,8 +72,14 @@ fun StatelessQuestCard(
     ElevatedCard(
         modifier = modifier,
         onClick = {},
-        enabled = false,
-
+//        enabled = false,
+        elevation = CardDefaults.elevatedCardElevation(
+            disabledElevation = 6.dp
+        ),
+        colors = CardDefaults.elevatedCardColors(
+            //disabledContainerColor = AppTheme.colorScheme.tertiaryContainer,
+            disabledContentColor = AppTheme.colorScheme.tertiary
+        )
     ) {
         Column {
             Row(
@@ -111,7 +120,9 @@ fun StatelessQuestCard(
 
                 IconButton(
                     onClick = { onClickQuestExpand(questModel.id) },
-                    modifier = Modifier.size(40.dp).padding(8.dp)
+                    modifier = Modifier
+                        .size(40.dp)
+                        .padding(8.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.OpenInNew,
@@ -141,20 +152,6 @@ fun StatelessQuestCard(
                     text = stringResource(id = R.string.time_remaining),
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-
-//                Divider(
-//                    color = AppTheme.colorScheme.outline
-//                )
-//                TextButton(
-//                    onClick = { /*TODO*/ },
-//                    modifier = Modifier.fillMaxWidth()
-//                ) {
-//                    Text(
-//                        text = stringResource(id = R.string.edit),
-//                        style = AppTheme.typography.labelLarge,
-//                         color = AppTheme.colorScheme.onSurface,
-//                    )
-//                }
             }
         }
     }
