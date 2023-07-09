@@ -1,8 +1,9 @@
-package com.example.questify
+package com.example.questify.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.questify.navigation.QuestEdit
 import com.example.questify.data.QuestDataSource
 import com.example.questify.data.QuestModel
 import dagger.hilt.android.lifecycle.HiltViewModel

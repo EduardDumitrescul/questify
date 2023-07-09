@@ -1,4 +1,4 @@
-package com.example.questify.ui.dialogs
+package com.example.questify.components.dialogs
 
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height

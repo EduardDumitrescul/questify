@@ -1,4 +1,4 @@
-package com.example.questify
+package com.example.questify.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
@@ -7,7 +7,8 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.example.questify.ui.QuestEditScreen
+import com.example.questify.screens.OverviewScreen
+import com.example.questify.screens.QuestEditScreen
 import java.util.UUID
 
 private const val TAG = "APPNAVHOST"

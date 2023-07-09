@@ -1,4 +1,4 @@
-package com.example.questify.ui
+package com.example.questify.components
 
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource

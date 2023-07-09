@@ -1,4 +1,4 @@
-package com.example.questify
+package com.example.questify.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

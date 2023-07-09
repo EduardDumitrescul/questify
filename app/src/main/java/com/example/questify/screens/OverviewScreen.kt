@@ -1,4 +1,4 @@
-package com.example.questify
+package com.example.questify.screens
 
 import android.util.Log
 import androidx.compose.foundation.clickable
@@ -49,14 +49,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.compose.AppTheme
+import com.example.questify.R
 import com.example.questify.data.QuestModel
-import com.example.questify.ui.dialogs.NumberInputDialog
-import com.example.questify.ui.dialogs.NumberInputWithFilterChipsDialog
-import com.example.questify.ui.dialogs.NumberInputWithUnitDialog
-import com.example.questify.ui.dialogs.TextInputDialog
-import com.example.questify.ui.quest.TrailingTextType
-import com.example.questify.ui.quest.QuestCard
-import com.example.questify.ui.quest.QuestRow
+import com.example.questify.components.dialogs.NumberInputDialog
+import com.example.questify.components.dialogs.NumberInputWithFilterChipsDialog
+import com.example.questify.components.dialogs.NumberInputWithUnitDialog
+import com.example.questify.components.dialogs.TextInputDialog
+import com.example.questify.components.quest.TrailingTextType
+import com.example.questify.components.quest.QuestCard
+import com.example.questify.components.quest.QuestRow
+import com.example.questify.viewmodels.OverviewViewModel
 import java.util.UUID
 import kotlin.random.Random
 
@@ -230,7 +232,7 @@ fun NewQuestBottomSheet(
 
             QuestRow(
                 leadingImageVector = Icons.Outlined.Edit, 
-                leadingContentDescription = stringResource(id = R.string.quest_name), 
+                leadingContentDescription = stringResource(id = R.string.quest_name),
                 text = stringResource(id = R.string.quest_name),
                 trailingText = quest.name,
                 trailingTextType = TrailingTextType.Normal,

@@ -1,4 +1,4 @@
-package com.example.questify
+package com.example.questify.di
 
 import com.example.questify.data.QuestDataSource
 import dagger.Module

@@ -1,4 +1,4 @@
-package com.example.questify.ui.dialogs
+package com.example.questify.components.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,11 +45,10 @@ import com.example.questify.R
 
 @Preview
 @Composable
-fun NumberInputWithUnitDialog(
+fun NumberInputDialog(
     initialValue: Int = 0,
     onDismissRequest: () -> Unit = {},
     save: (Int) -> Unit = {},
-    unit: String = "minutes",
 ) {
     var value by remember { mutableStateOf(TextFieldValue(initialValue.toString())) }
     val focusRequester = remember { FocusRequester() }
@@ -124,33 +122,9 @@ fun NumberInputWithUnitDialog(
                     unfocusedBorderColor = AppTheme.colorScheme.primaryContainer,
                     cursorColor = AppTheme.colorScheme.primary
                 ),
-                textStyle = AppTheme.typography.titleMedium.copy(textAlign = TextAlign.End),
+                textStyle = AppTheme.typography.titleMedium.copy(textAlign = TextAlign.Center),
                 singleLine = true
             )
-//            Divider(
-//                modifier = Modifier
-//                    .fillMaxHeight()
-//                    .width(1.dp),
-//                color = AppTheme.colorScheme.primary.copy(alpha = 0.4f)
-//            )
-            Row(
-                modifier = Modifier.fillMaxHeight()
-                    .background(AppTheme.colorScheme.primaryContainer)
-                    .weight(1.4f),
-                 verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = unit,
-                    style = AppTheme.typography.titleMedium,
-                    modifier = Modifier.background(AppTheme.colorScheme.primaryContainer),
-//                        .padding(horizontal = 8.dp),
-                    color = AppTheme.colorScheme.primary,
-                    textAlign = TextAlign.Start
-                )
-            }
-
-
             Divider(
                 modifier = Modifier
                     .fillMaxHeight()

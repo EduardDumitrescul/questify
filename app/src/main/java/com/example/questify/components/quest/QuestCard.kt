@@ -1,4 +1,4 @@
-package com.example.questify.ui.quest
+package com.example.questify.components.quest
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

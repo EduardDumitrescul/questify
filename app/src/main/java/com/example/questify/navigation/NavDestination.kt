@@ -1,4 +1,4 @@
-package com.example.questify
+package com.example.questify.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.AppTheme
+import com.example.questify.navigation.AppNavHost
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
