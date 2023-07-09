@@ -37,6 +37,8 @@ import com.example.questify.QuestEditViewModel
 import com.example.questify.R
 import com.example.questify.data.QuestModel
 import com.example.questify.ui.dialogs.NumberInputDialog
+import com.example.questify.ui.dialogs.NumberInputWithFilterChipsDialog
+import com.example.questify.ui.dialogs.NumberInputWithUnitDialog
 import com.example.questify.ui.dialogs.TextInputDialog
 import com.example.questify.ui.quest.TrailingTextType
 import com.example.questify.ui.quest.QuestRow
@@ -51,6 +53,8 @@ fun QuestEditScreen(
     var showNameDialog by remember { mutableStateOf(false)}
     var showDescriptionDialog by remember { mutableStateOf(false)}
     var showTargetDialog by remember { mutableStateOf(false)}
+    var showRequirementDialog by remember { mutableStateOf(false)}
+    var showDeadlineDialog by remember { mutableStateOf(false)}
 
     questModel.value?.let {quest ->
         StatelessQuestEditScreen(
@@ -59,6 +63,8 @@ fun QuestEditScreen(
             onNameClick = {showNameDialog = true},
             onDescriptionClick = {showDescriptionDialog = true},
             onTargetClick = {showTargetDialog = true},
+            onRequirementsClick = {showRequirementDialog = true},
+            onDeadlineClick = {showDeadlineDialog = true},
         )
         if(showNameDialog) {
             TextInputDialog(
@@ -87,6 +93,26 @@ fun QuestEditScreen(
                 save = {viewModel.updateQuest(quest.apply {target=it})}
             )
         }
+        if(showRequirementDialog) {
+            NumberInputWithUnitDialog(
+                initialValue = quest.requirementTime,
+                onDismissRequest = {showRequirementDialog = false},
+                save = { quest.requirementTime=it },
+                unit = "minutes",
+            )
+        }
+        if(showDeadlineDialog) {
+            NumberInputWithFilterChipsDialog(
+                initialValue = quest.deadline,
+                onDismissRequest = {showDeadlineDialog = false},
+                save = {value, unit ->
+                    if(unit == 3) quest.deadline = 30 * value
+                    else if(unit == 2) quest.deadline = 7 * value
+                    else quest.deadline = value
+                },
+                chipList = listOf("days", "weeks", "months")
+            )
+        }
     }
 
 }
@@ -100,6 +126,8 @@ fun StatelessQuestEditScreen(
     onNameClick: () -> Unit = {},
     onDescriptionClick: () -> Unit = {},
     onTargetClick: () -> Unit = {},
+    onRequirementsClick: () -> Unit = {},
+    onDeadlineClick: () -> Unit = {},
 ) {
     Scaffold(
         modifier = modifier,
@@ -164,7 +192,8 @@ fun StatelessQuestEditScreen(
                     trailingText = questModel.getRepRequirements(),
                     trailingTextType = if(questModel.requirementTime > 0) TrailingTextType.FullColored else TrailingTextType.Normal,
                     modifier = Modifier
-                        .padding(vertical = 16.dp),
+                        .padding(vertical = 16.dp)
+                        .clickable { onRequirementsClick() },
                 )
                 QuestRow(
                     leadingImageVector = Icons.Outlined.Today,
@@ -182,7 +211,8 @@ fun StatelessQuestEditScreen(
                     trailingText = questModel.getDeadlineFormatted(),
                     trailingTextType = if(questModel.hasDeadline) TrailingTextType.FullColored else TrailingTextType.Normal,
                     modifier = Modifier
-                        .padding(vertical = 16.dp),
+                        .padding(vertical = 16.dp)
+                        .clickable { onDeadlineClick() },
                 )
             }
         }
