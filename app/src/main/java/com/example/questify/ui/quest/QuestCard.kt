@@ -94,9 +94,7 @@ fun StatelessQuestCard(
                     tint = color
                 )
 
-                Column(
-
-                ) {
+                Column {
                     Text(
                         text = quest.name,
                         style = AppTheme.typography.titleMedium,

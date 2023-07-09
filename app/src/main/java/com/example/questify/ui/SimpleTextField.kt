@@ -1,5 +1,6 @@
 package com.example.questify.ui
 
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -41,11 +43,14 @@ fun SimpleTextField(
     singleLine: Boolean = false,
     enabled: Boolean = true,
     leadingIcon: @Composable () -> Unit = {},
-    contentPadding: PaddingValues = TextFieldDefaults.textFieldWithoutLabelPadding(
+    contentPadding: PaddingValues = TextFieldDefaults.contentPaddingWithoutLabel(
         top = 0.dp,
-        bottom = 0.dp
+        bottom = 0.dp,
     ),
-     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors()
+    colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
+     ),
+    isError: Boolean = false,
+    interactionSource: InteractionSource = MutableInteractionSource()
 ) {
     BasicTextField(
         value = value,
@@ -53,17 +58,20 @@ fun SimpleTextField(
         modifier = modifier,
         singleLine = singleLine,
     ) { innerTextField ->
-        TextFieldDefaults.OutlinedTextFieldDecorationBox(
+        OutlinedTextFieldDefaults.DecorationBox(
             value = value,
             innerTextField = innerTextField,
-            label = label,
             enabled = enabled,
             singleLine = singleLine,
             visualTransformation = VisualTransformation.None,
+            interactionSource = remember<MutableInteractionSource> { MutableInteractionSource() },
+            label = label,
             leadingIcon = leadingIcon,
-            contentPadding = contentPadding,
-            interactionSource = remember { MutableInteractionSource() },
             colors = colors,
+            contentPadding = contentPadding,
+            container = {
+                OutlinedTextFieldDefaults.ContainerBox(enabled, isError, interactionSource, colors)
+            },
         )
     }
 }
