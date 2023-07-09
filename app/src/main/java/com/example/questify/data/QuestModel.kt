@@ -46,5 +46,14 @@ data class QuestModel(
     fun getDeadlineFormatted(): String = if(deadline > 0) "TODO" else "none"
 
     fun getRepRequirements(): String = if(requirementTime > 0) "$requirementTime min" else "none"
+    fun getTimeRemaining(): String {
+        // TODO
+        return "todo"
+    }
+
+    fun getTargetStatus(): String {
+    // TODO
+        return "todo"
+    }
 
 }
