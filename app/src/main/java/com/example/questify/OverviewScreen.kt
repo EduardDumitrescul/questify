@@ -30,7 +30,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -49,14 +48,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
 import com.example.questify.data.QuestModel
 import com.example.questify.ui.dialogs.NumberInputDialog
 import com.example.questify.ui.dialogs.NumberInputWithFilterChipsDialog
 import com.example.questify.ui.dialogs.NumberInputWithUnitDialog
 import com.example.questify.ui.dialogs.TextInputDialog
-import com.example.questify.ui.quest.EditTextType
+import com.example.questify.ui.quest.TrailingTextType
 import com.example.questify.ui.quest.QuestCard
 import com.example.questify.ui.quest.QuestRow
 import java.util.UUID
@@ -235,7 +233,7 @@ fun NewQuestBottomSheet(
                 leadingContentDescription = stringResource(id = R.string.quest_name), 
                 text = stringResource(id = R.string.quest_name),
                 trailingText = quest.name,
-                trailingTextType = EditTextType.Normal,
+                trailingTextType = TrailingTextType.Normal,
                 showDivider = false,
                 modifier = Modifier.clickable { showNameDialog = true }
             )
@@ -244,7 +242,7 @@ fun NewQuestBottomSheet(
                 leadingContentDescription = stringResource(id = R.string.description),
                 text = stringResource(id = R.string.description),
                 trailingText = quest.description,
-                trailingTextType = EditTextType.Normal,
+                trailingTextType = TrailingTextType.Normal,
                 showDivider = false,
                 modifier = Modifier.clickable { showDescriptionDialog = true }
             )
@@ -253,7 +251,7 @@ fun NewQuestBottomSheet(
                 leadingContentDescription = stringResource(id = R.string.target),
                 text = stringResource(id = R.string.target),
                 trailingText = quest.target.toString(),
-                trailingTextType = EditTextType.FullColored,
+                trailingTextType = TrailingTextType.FullColored,
                 showDivider = false,
                 modifier = Modifier.clickable { showTargetDialog = true }
             )
@@ -262,7 +260,7 @@ fun NewQuestBottomSheet(
                 leadingContentDescription = stringResource(id = R.string.rep_min_requirement),
                 text = stringResource(id = R.string.rep_min_requirement),
                 trailingText = quest.getRepRequirements(),
-                trailingTextType = if(quest.requirementTime > 0) EditTextType.FullColored else EditTextType.Normal,
+                trailingTextType = if(quest.requirementTime > 0) TrailingTextType.FullColored else TrailingTextType.Normal,
                 showDivider = false,
                 modifier = Modifier.clickable { showRequirementDialog = true }
             )
@@ -271,7 +269,7 @@ fun NewQuestBottomSheet(
                 leadingContentDescription = stringResource(id = R.string.deadline),
                 text = stringResource(id = R.string.deadline),
                 trailingText = quest.deadline.toString(),
-                trailingTextType = if(quest.deadline > 0) EditTextType.FullColored else EditTextType.Normal,
+                trailingTextType = if(quest.deadline > 0) TrailingTextType.FullColored else TrailingTextType.Normal,
                 showDivider = false,
                 modifier = Modifier.clickable { showDeadlineDialog = true },
             )

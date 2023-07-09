@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
 
 
-enum class EditTextType {
+enum class TrailingTextType {
     Normal,
     DigitColored,
     FullColored
@@ -36,7 +36,7 @@ fun QuestRow(
     leadingContentDescription: String,
     text: String,
     trailingText: String = "",
-    trailingTextType: EditTextType = EditTextType.Normal,
+    trailingTextType: TrailingTextType = TrailingTextType.Normal,
     showDivider: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
@@ -72,7 +72,7 @@ fun QuestRow(
 
 
             when(trailingTextType) {
-                EditTextType.DigitColored -> {
+                TrailingTextType.DigitColored -> {
                     Box(
                         modifier = Modifier
                             .size(24.dp)
@@ -90,7 +90,7 @@ fun QuestRow(
                         )
                     }
                 }
-                EditTextType.FullColored -> {
+                TrailingTextType.FullColored -> {
                     Box(
                         modifier = Modifier
                             .width(80.dp)
