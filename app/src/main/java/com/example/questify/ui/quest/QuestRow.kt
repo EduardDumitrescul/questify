@@ -37,11 +37,14 @@ fun QuestRow(
     text: String,
     trailingText: String = "",
     trailingTextType: EditTextType = EditTextType.Normal,
+    showDivider: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
-    Divider(
-        color = AppTheme.colorScheme.outline.copy(alpha = 0.2f)
-    )
+    if(showDivider) {
+        Divider(
+            color = AppTheme.colorScheme.outline.copy(alpha = 0.2f)
+        )
+    }
     Surface(
         modifier = modifier
     )
