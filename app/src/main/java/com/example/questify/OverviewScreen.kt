@@ -48,6 +48,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
 import com.example.questify.data.QuestModel
@@ -69,7 +70,7 @@ private val TAG = "OVERVIEW_SCREEN"
 fun OverviewScreen(
     navigateToQuestEdit: (UUID) -> Unit = {},
     modifier: Modifier = Modifier,
-    viewModel: OverviewViewModel = viewModel(),
+    viewModel: OverviewViewModel = hiltViewModel(),
 ) {
     val quests = viewModel.quests.observeAsState()
     val showBottomSheet = remember { mutableStateOf(false) }

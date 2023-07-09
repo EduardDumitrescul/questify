@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
 import com.example.questify.QuestEditViewModel
@@ -43,7 +44,7 @@ import com.example.questify.ui.quest.QuestRow
 
 @Composable
 fun QuestEditScreen() {
-    val viewModel: QuestEditViewModel = viewModel()
+    val viewModel: QuestEditViewModel = hiltViewModel()
     val questModel = viewModel.questModel.observeAsState()
 
     var showNameDialog by remember { mutableStateOf(false)}

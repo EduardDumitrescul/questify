@@ -4,9 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.questify.data.QuestDataSource
 import com.example.questify.data.QuestModel
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class OverviewViewModel: ViewModel() {
-    private val dataSource = QuestDataSource()
+@HiltViewModel
+class OverviewViewModel @Inject constructor(
+    private val dataSource: QuestDataSource
+): ViewModel() {
 
     val quests: LiveData<List<QuestModel>> = dataSource.getQuests()
 
