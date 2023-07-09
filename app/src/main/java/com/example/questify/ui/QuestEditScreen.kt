@@ -15,7 +15,6 @@ import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Today
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -40,8 +39,8 @@ import com.example.questify.ui.dialogs.NumberInputDialog
 import com.example.questify.ui.dialogs.NumberInputWithFilterChipsDialog
 import com.example.questify.ui.dialogs.NumberInputWithUnitDialog
 import com.example.questify.ui.dialogs.TextInputDialog
-import com.example.questify.ui.quest.TrailingTextType
 import com.example.questify.ui.quest.QuestRow
+import com.example.questify.ui.quest.TrailingTextType
 
 @Composable
 fun QuestEditScreen(
@@ -117,7 +116,6 @@ fun QuestEditScreen(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StatelessQuestEditScreen(
     questModel: QuestModel,

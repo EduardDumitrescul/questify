@@ -20,7 +20,6 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,7 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,10 +59,10 @@ fun QuestCard(
 @Composable
 fun StatelessQuestCard(
     quest: QuestModel,
+    modifier: Modifier = Modifier,
     expanded: Boolean = false,
     onClickHeader: () -> Unit,
     onClickQuestExpand: (UUID) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     ElevatedCard(
         modifier = modifier,
@@ -159,40 +157,6 @@ fun StatelessQuestCard(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
-        }
-    }
-}
-
-@Composable
-fun CardRow(
-    leadingImageVector: ImageVector,
-    leadingContentDescription: String,
-    text: String, 
-    trailingContent: (() -> Unit) = {},
-    modifier: Modifier = Modifier
-) {
-    Surface(
-        modifier = modifier
-    )
-    {
-        Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = leadingImageVector,
-                contentDescription = leadingContentDescription,
-                tint = AppTheme.colorScheme.primary,
-                modifier = Modifier
-                    .size(24.dp)
-            )
-            Text(
-                text = text,
-                style = AppTheme.typography.labelMedium,
-                modifier = Modifier.padding(start = 8.dp)
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            trailingContent()
         }
     }
 }

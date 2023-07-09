@@ -1,7 +1,6 @@
 package com.example.questify
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.questify.data.QuestDataSource
@@ -13,7 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class QuestEditViewModel @Inject constructor (
     private val dataSource: QuestDataSource,
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ): ViewModel() {
     private val questId: UUID = UUID.fromString(savedStateHandle.get<String>(QuestEdit.questIdArg)!!)
     val questModel: LiveData<QuestModel> = dataSource.getQuestById(questId)

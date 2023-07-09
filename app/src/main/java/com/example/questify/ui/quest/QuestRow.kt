@@ -35,10 +35,10 @@ fun QuestRow(
     leadingImageVector: ImageVector,
     leadingContentDescription: String,
     text: String,
+    modifier: Modifier = Modifier,
     trailingText: String = "",
     trailingTextType: TrailingTextType = TrailingTextType.Normal,
     showDivider: Boolean = true,
-    modifier: Modifier = Modifier,
 ) {
     if(showDivider) {
         Divider(

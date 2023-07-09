@@ -1,7 +1,6 @@
 package com.example.questify.data
 
 import androidx.lifecycle.LiveData
-import com.example.questify.data.QuestModel
 import java.util.UUID
 
 interface QuestRepository {

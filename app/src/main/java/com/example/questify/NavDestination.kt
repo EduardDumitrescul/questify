@@ -1,18 +1,11 @@
 package com.example.questify
 
-import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.navigation.NavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.example.compose.AppTheme
-import com.example.questify.ui.QuestEditScreen
-import java.util.UUID
 
 interface NavDestination {
     val icon: ImageVector

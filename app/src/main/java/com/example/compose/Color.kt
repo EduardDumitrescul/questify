@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.example.compose
 import androidx.compose.ui.graphics.Color
 
@@ -63,6 +65,7 @@ val md_theme_dark_outline = Color(0xFF918F9A)
 val md_theme_dark_inverseOnSurface = Color(0xFF1C1B1F)
 val md_theme_dark_inverseSurface = Color(0xFFE5E1E6)
 val md_theme_dark_inversePrimary = Color(0xFF4B4FC9)
+@Suppress("unused")
 val md_theme_dark_shadow = Color(0xFF000000)
 val md_theme_dark_surfaceTint = Color(0xFFC0C1FF)
 val md_theme_dark_outlineVariant = Color(0xFF46464F)

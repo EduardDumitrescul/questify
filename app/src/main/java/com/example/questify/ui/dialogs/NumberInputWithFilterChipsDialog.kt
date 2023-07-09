@@ -48,7 +48,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
 import com.example.questify.R
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @OptIn(ExperimentalMaterial3Api::class)

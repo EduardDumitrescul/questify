@@ -1,3 +1,5 @@
+@file:Suppress("SameReturnValue", "SameReturnValue")
+
 package com.example.questify.data
 
 import java.text.SimpleDateFormat
@@ -28,6 +30,7 @@ data class QuestModel(
 
 
     // function to check if this quest has been completed for today
+    @Suppress("SameReturnValue", "SameReturnValue", "SameReturnValue")
     fun isCompleted(): Boolean {
         //TODO
         return false

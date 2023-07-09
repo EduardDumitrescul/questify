@@ -60,14 +60,14 @@ import com.example.questify.ui.quest.QuestRow
 import java.util.UUID
 import kotlin.random.Random
 
-private val TAG = "OVERVIEW_SCREEN"
+private const val TAG = "OVERVIEW_SCREEN"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun OverviewScreen(
-    navigateToQuestEdit: (UUID) -> Unit = {},
     modifier: Modifier = Modifier,
+    navigateToQuestEdit: (UUID) -> Unit = {},
     viewModel: OverviewViewModel = hiltViewModel(),
 ) {
     val quests = viewModel.quests.observeAsState()
@@ -87,7 +87,7 @@ fun OverviewScreen(
             }
         }
     )
-    {
+    { it ->
         Column(modifier = Modifier.padding(it)) {
             WelcomeMessage(
                 modifier = Modifier.padding(vertical = 32.dp, horizontal = 16.dp)
@@ -146,7 +146,7 @@ fun NewQuestBottomSheet(
     sheetState: SheetState = SheetState(false),
     save: (QuestModel) -> Unit = {},
 ) {
-    var quest by remember { mutableStateOf(QuestModel()) }
+    val quest by remember { mutableStateOf(QuestModel()) }
 
     var showNameDialog by remember { mutableStateOf(false)}
     var showDescriptionDialog by remember { mutableStateOf(false)}
