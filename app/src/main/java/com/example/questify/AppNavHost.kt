@@ -34,7 +34,9 @@ fun AppNavHost(
             route = QuestEdit.routeWithArgument,
             arguments = QuestEdit.arguments
         ) {
-            QuestEditScreen()
+            QuestEditScreen(
+                navigateUp = { navController.navigateUp() }
+            )
         }
     }
 

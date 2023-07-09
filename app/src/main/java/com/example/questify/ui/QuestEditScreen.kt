@@ -43,7 +43,9 @@ import com.example.questify.ui.quest.EditTextType
 import com.example.questify.ui.quest.QuestRow
 
 @Composable
-fun QuestEditScreen() {
+fun QuestEditScreen(
+    navigateUp: () -> Unit = {},
+) {
     val viewModel: QuestEditViewModel = hiltViewModel()
     val questModel = viewModel.questModel.observeAsState()
 
@@ -54,6 +56,7 @@ fun QuestEditScreen() {
     questModel.value?.let {quest ->
         StatelessQuestEditScreen(
             questModel = quest,
+            navigateUp = navigateUp,
             onNameClick = {showNameDialog = true},
             onDescriptionClick = {showDescriptionDialog = true},
             onTargetClick = {showTargetDialog = true},
@@ -94,6 +97,7 @@ fun QuestEditScreen() {
 fun StatelessQuestEditScreen(
     questModel: QuestModel,
     modifier: Modifier = Modifier,
+    navigateUp: () -> Unit = {},
     onNameClick: () -> Unit = {},
     onDescriptionClick: () -> Unit = {},
     onTargetClick: () -> Unit = {},
@@ -108,7 +112,7 @@ fun StatelessQuestEditScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = navigateUp,
                     modifier = Modifier.size(40.dp)
                 ) {
                     Icon(
