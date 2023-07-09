@@ -1,6 +1,6 @@
 package com.example.questify.data
 
-import java.util.Date
+import java.time.LocalDate
 import java.util.UUID
 
 
@@ -10,7 +10,7 @@ import java.util.UUID
 data class EntryModel(
     val questId: UUID,
     val entryId: UUID = UUID.randomUUID(),
-    val date: Date  = Date(),
+    val date: LocalDate = LocalDate.now(),
     private val duration: Int = 0
 ) {
 }
