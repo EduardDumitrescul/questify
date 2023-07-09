@@ -32,14 +32,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
 import com.example.questify.QuestEditViewModel
 import com.example.questify.R
 import com.example.questify.data.QuestModel
 import com.example.questify.ui.dialogs.NumberInputDialog
 import com.example.questify.ui.dialogs.TextInputDialog
-import com.example.questify.ui.quest.EditTextType
+import com.example.questify.ui.quest.TrailingTextType
 import com.example.questify.ui.quest.QuestRow
 
 @Composable
@@ -154,7 +153,7 @@ fun StatelessQuestEditScreen(
                     leadingContentDescription = stringResource(id = R.string.target_reps),
                     text = stringResource(id = R.string.target_reps),
                     trailingText = questModel.target.toString(),
-                    trailingTextType = EditTextType.FullColored,
+                    trailingTextType = TrailingTextType.FullColored,
                     modifier = Modifier.clickable { onTargetClick() }
                         .padding(vertical = 16.dp)
                 )
@@ -163,7 +162,7 @@ fun StatelessQuestEditScreen(
                     leadingContentDescription = stringResource(id = R.string.rep_min_requirement),
                     text = stringResource(id = R.string.rep_min_requirement),
                     trailingText = questModel.getRepRequirements(),
-                    trailingTextType = if(questModel.requirementTime > 0) EditTextType.FullColored else EditTextType.Normal,
+                    trailingTextType = if(questModel.requirementTime > 0) TrailingTextType.FullColored else TrailingTextType.Normal,
                     modifier = Modifier
                         .padding(vertical = 16.dp),
                 )
@@ -172,7 +171,7 @@ fun StatelessQuestEditScreen(
                     leadingContentDescription = stringResource(id = R.string.start_date),
                     text = stringResource(id = R.string.start_date),
                     trailingText = questModel.getDateCreatedFormatted(),
-                    trailingTextType = EditTextType.FullColored,
+                    trailingTextType = TrailingTextType.FullColored,
                     modifier = Modifier
                         .padding(vertical = 16.dp),
                 )
@@ -181,7 +180,7 @@ fun StatelessQuestEditScreen(
                     leadingContentDescription = stringResource(id = R.string.deadline),
                     text = stringResource(id = R.string.deadline),
                     trailingText = questModel.getDeadlineFormatted(),
-                    trailingTextType = if(questModel.hasDeadline) EditTextType.FullColored else EditTextType.Normal,
+                    trailingTextType = if(questModel.hasDeadline) TrailingTextType.FullColored else TrailingTextType.Normal,
                     modifier = Modifier
                         .padding(vertical = 16.dp),
                 )
