@@ -1,12 +1,11 @@
 package com.example.questify.ui.quest
 
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -14,10 +13,8 @@ import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.Repeat
 import androidx.compose.material.icons.outlined.Timelapse
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -50,9 +47,9 @@ fun QuestCard(
     questModel: QuestModel,
     modifier: Modifier = Modifier
 ) {
-    var expanded by remember { mutableStateOf(true)}
+    var expanded by remember { mutableStateOf(false)}
     StatelessQuestCard(
-        questModel = questModel,
+        quest = questModel,
         expanded = expanded,
         onClickHeader = { expanded = !expanded },
         onClickQuestExpand = navigateToQuestEdit,
@@ -63,7 +60,7 @@ fun QuestCard(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StatelessQuestCard(
-    questModel: QuestModel,
+    quest: QuestModel,
     expanded: Boolean = false,
     onClickHeader: () -> Unit,
     onClickQuestExpand: (UUID) -> Unit,
@@ -72,12 +69,10 @@ fun StatelessQuestCard(
     ElevatedCard(
         modifier = modifier,
         onClick = {},
-//        enabled = false,
         elevation = CardDefaults.elevatedCardElevation(
             disabledElevation = 6.dp
         ),
         colors = CardDefaults.elevatedCardColors(
-            //disabledContainerColor = AppTheme.colorScheme.tertiaryContainer,
             disabledContentColor = AppTheme.colorScheme.tertiary
         )
     ) {
@@ -89,7 +84,7 @@ fun StatelessQuestCard(
                     .padding(horizontal = 8.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                val color: Color = if(questModel.isCompleted())
+                val color: Color = if(quest.isCompleted())
                     AppTheme.colorScheme.surfaceTint.copy()
                 else
                     AppTheme.colorScheme.surfaceTint.copy(alpha = 0.2f)
@@ -103,12 +98,12 @@ fun StatelessQuestCard(
 
                 ) {
                     Text(
-                        text = questModel.name,
+                        text = quest.name,
                         style = AppTheme.typography.titleMedium,
                         color = AppTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "on target",
+                        text = quest.getTargetStatus(),
                         style = AppTheme.typography.labelMedium,
                         color = AppTheme.colorScheme.onSurface.copy(alpha = 0.5f)
                     )
@@ -119,7 +114,7 @@ fun StatelessQuestCard(
                 )
 
                 IconButton(
-                    onClick = { onClickQuestExpand(questModel.id) },
+                    onClick = { onClickQuestExpand(quest.id) },
                     modifier = Modifier
                         .size(40.dp)
                         .padding(8.dp)
@@ -135,23 +130,36 @@ fun StatelessQuestCard(
                 Divider(
                     color = AppTheme.colorScheme.onSurface.copy(alpha = 0.2f),
                 )
-                CardRow(
+                Spacer(modifier = Modifier.height(8.dp))
+
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Description,
                     leadingContentDescription = stringResource(id = R.string.description),
                     text = stringResource(id = R.string.description),
-                     modifier = Modifier.padding(top = 16.dp)
+                    trailingText = quest.description,
+                    trailingTextType = TrailingTextType.Normal,
+                    showDivider = false,
+                    modifier = Modifier.padding(8.dp)
                 )
-                CardRow(
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Flag,
                     leadingContentDescription = stringResource(id = R.string.target),
-                    text = stringResource(id = R.string.target)
+                    text = stringResource(id = R.string.target),
+                    trailingText = quest.target.toString(),
+                    trailingTextType = TrailingTextType.FullColored,
+                    showDivider = false,
+                    modifier = Modifier.padding(8.dp)
                 )
-                CardRow(
+                QuestRow(
                     leadingImageVector = Icons.Outlined.Timelapse,
                     leadingContentDescription = stringResource(id = R.string.time_remaining),
                     text = stringResource(id = R.string.time_remaining),
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    trailingText = quest.getTimeRemaining(),
+                    trailingTextType = TrailingTextType.FullColored,
+                    showDivider = false,
+                    modifier = Modifier.padding(8.dp)
                 )
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }
