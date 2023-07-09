@@ -19,6 +19,8 @@ data class QuestModel(
     val dateEnded: Date = Date(),
     val hasDeadline: Boolean = false,
     var deadline: Int = 0,
+
+    var entryList: List<EntryModel> = listOf(),
 ) {
 
     companion object {

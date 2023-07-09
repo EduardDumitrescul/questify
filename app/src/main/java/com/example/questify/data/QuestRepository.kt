@@ -9,4 +9,6 @@ interface QuestRepository {
     fun insertQuest(quest: QuestModel)
     fun removeQuest(quest: QuestModel)
     fun updateQuest(quest: QuestModel)
+    fun getEntriesByQuestId(questId: UUID): LiveData<List<EntryModel>>
+    fun insertEntry(entry: EntryModel)
 }

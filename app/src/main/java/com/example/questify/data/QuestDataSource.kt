@@ -12,6 +12,13 @@ class QuestDataSource: QuestRepository {
         QuestModel(name = "Quest 4"),
         QuestModel(name = "Quest 5"),
     )
+    private val entries: MutableList<EntryModel> = mutableListOf<EntryModel>().apply {
+        for(q in quests) {
+            for(i in 0 until 10) {
+                this.add(EntryModel(q.id))
+            }
+        }
+    }
 
     override fun getQuestById(id: UUID): LiveData<QuestModel> {
         quests.forEach {
@@ -40,6 +47,22 @@ class QuestDataSource: QuestRepository {
                 quests[i] = quest
             }
         }
+    }
+
+    override fun getEntriesByQuestId(questId: UUID): LiveData<List<EntryModel>> {
+        return MutableLiveData(
+            mutableListOf<EntryModel>().apply {
+                entries.forEach { entry ->
+                    if(entry.questId == questId) {
+                        this.add(entry)
+                    }
+                }
+            }
+        )
+    }
+
+    override fun insertEntry(entry: EntryModel) {
+        entries.add(entry)
     }
 
 }
