@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
@@ -27,7 +28,7 @@ import com.example.compose.AppTheme
 import com.example.questify.R
 
 
-@Preview
+@Preview()
 @Composable
 fun TwoButtonDialog(
     modifier: Modifier = Modifier,
@@ -39,12 +40,13 @@ fun TwoButtonDialog(
     Dialog(onDismissRequest = onDismissRequest)
     {
         Surface(
+            shape = AppTheme.shapes.medium,
+            tonalElevation  = 3.dp,
+            shadowElevation = 3.dp,
             modifier = modifier
         ) {
             Column(
                 modifier = Modifier
-                    .clip(shape = AppTheme.shapes.medium)
-                    .shadow(elevation = 6.dp, clip = true)
                     .defaultMinSize(minWidth = 200.dp)
                     .background(AppTheme.colorScheme.surface),
             ) {
