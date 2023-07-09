@@ -236,6 +236,7 @@ fun NewQuestBottomSheet(
                 text = stringResource(id = R.string.quest_name),
                 trailingText = quest.name,
                 trailingTextType = EditTextType.Normal,
+                showDivider = false,
                 modifier = Modifier.clickable { showNameDialog = true }
             )
             QuestRow(
@@ -244,6 +245,7 @@ fun NewQuestBottomSheet(
                 text = stringResource(id = R.string.description),
                 trailingText = quest.description,
                 trailingTextType = EditTextType.Normal,
+                showDivider = false,
                 modifier = Modifier.clickable { showDescriptionDialog = true }
             )
             QuestRow(
@@ -252,6 +254,7 @@ fun NewQuestBottomSheet(
                 text = stringResource(id = R.string.target),
                 trailingText = quest.target.toString(),
                 trailingTextType = EditTextType.FullColored,
+                showDivider = false,
                 modifier = Modifier.clickable { showTargetDialog = true }
             )
             QuestRow(
@@ -260,6 +263,7 @@ fun NewQuestBottomSheet(
                 text = stringResource(id = R.string.rep_min_requirement),
                 trailingText = quest.getRepRequirements(),
                 trailingTextType = if(quest.requirementTime > 0) EditTextType.FullColored else EditTextType.Normal,
+                showDivider = false,
                 modifier = Modifier.clickable { showRequirementDialog = true }
             )
             QuestRow(
@@ -268,6 +272,7 @@ fun NewQuestBottomSheet(
                 text = stringResource(id = R.string.deadline),
                 trailingText = quest.deadline.toString(),
                 trailingTextType = if(quest.deadline > 0) EditTextType.FullColored else EditTextType.Normal,
+                showDivider = false,
                 modifier = Modifier.clickable { showDeadlineDialog = true },
             )
 
