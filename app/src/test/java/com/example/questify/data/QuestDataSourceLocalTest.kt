@@ -66,6 +66,21 @@ class QuestDataSourceLocalTest {
         assertEquals(retrievedQuests.value, quests)
     }
 
+    @Test
+    fun deleteQuest() {
+        helperAddQuests()
+
+        dataSource.deleteQuest(quests.first())
+
+        val questsWithoutFirst = quests.apply {
+            this.removeFirst()
+        }
+
+        val retrievedQuests: LiveData<List<QuestModel>> = dataSource.getQuests()
+
+        assertEquals(retrievedQuests.value, questsWithoutFirst)
+    }
+
     fun helperAddQuests() {
         quests.forEach {
             dataSource.addQuest(it)

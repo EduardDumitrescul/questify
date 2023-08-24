@@ -27,5 +27,9 @@ class QuestDataSourceLocal {
         return MutableLiveData(quests)
     }
 
+    fun deleteQuest(quest: QuestModel) {
+        quests.remove(quest)
+    }
+
     fun getNumberOfQuests() = quests.size
 }
