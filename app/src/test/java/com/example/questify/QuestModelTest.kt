@@ -25,4 +25,15 @@ class QuestModelTest {
         assertEquals(quest.description, "")
     }
 
+    @Test
+    fun checkQuestSetters() {
+        quest.name = "new name"
+        quest.description = "description"
+
+        assertEquals(quest.name, "new name")
+        assertEquals(quest.description, "description")
+    }
+
+
+
 }

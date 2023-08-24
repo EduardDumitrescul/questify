@@ -3,10 +3,10 @@ package com.example.questify
 import java.util.UUID
 
 
-class QuestModel(
+data class QuestModel(
     val id: UUID = UUID.randomUUID(),
-    val name: String = "Base Quest",
-    val description: String = ""
+    var name: String = "Base Quest",
+    var description: String = ""
 ) {
 
 }
