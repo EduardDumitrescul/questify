@@ -14,6 +14,12 @@ import java.util.UUID
 class QuestDataSourceLocalTest {
     private val dataSource = QuestDataSourceLocal()
 
+    private val quests = mutableListOf(
+        QuestModel(name = "quest 1"),
+        QuestModel(name = "quest 2"),
+        QuestModel(name = "quest 3")
+    )
+
     @Test
     fun checkQuestDataSourceExists() {
         assertNotNull(dataSource)
@@ -53,17 +59,16 @@ class QuestDataSourceLocalTest {
 
     @Test
     fun getQuests() {
-        val quests = mutableListOf(
-            QuestModel(name = "quest 1"),
-            QuestModel(name = "quest 2"),
-            QuestModel(name = "quest 3")
-        )
-        quests.forEach {
-            dataSource.addQuest(it)
-        }
+       helperAddQuests()
 
         val retrievedQuests: LiveData<List<QuestModel>> = dataSource.getQuests()
 
         assertEquals(retrievedQuests.value, quests)
+    }
+
+    fun helperAddQuests() {
+        quests.forEach {
+            dataSource.addQuest(it)
+        }
     }
 }
