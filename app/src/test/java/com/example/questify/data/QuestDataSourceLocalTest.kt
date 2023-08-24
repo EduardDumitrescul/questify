@@ -28,4 +28,14 @@ class QuestDataSourceLocalTest {
         assertEquals(numberOfQuests, 3)
     }
 
+    @Test
+    fun getQuestById() {
+        val quest = QuestModel()
+        dataSource.addQuest(quest)
+
+        val retrievedQuest: QuestModel = dataSource.getQuestById(quest.id)
+
+        assertEquals(quest, retrievedQuest)
+    }
+
 }
