@@ -1,5 +1,6 @@
 package com.example.questify.data
 
+import androidx.lifecycle.LiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.questify.QuestModel
 import org.junit.Assert.*
@@ -34,9 +35,9 @@ class QuestDataSourceLocalTest {
         val quest = QuestModel()
         dataSource.addQuest(quest)
 
-        val retrievedQuest: QuestModel = dataSource.getQuestById(quest.id)
+        val retrievedQuest: LiveData<QuestModel> = dataSource.getQuestById(quest.id)
 
-        assertEquals(quest, retrievedQuest)
+        assertEquals(quest, retrievedQuest.value)
     }
 
     @Test()

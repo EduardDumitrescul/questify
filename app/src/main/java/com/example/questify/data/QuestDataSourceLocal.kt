@@ -1,5 +1,7 @@
 package com.example.questify.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.questify.QuestModel
 import java.lang.IllegalArgumentException
 import java.util.UUID
@@ -12,10 +14,10 @@ class QuestDataSourceLocal {
         quests.add(quest)
     }
 
-    fun getQuestById(id: UUID): QuestModel {
+    fun getQuestById(id: UUID): LiveData<QuestModel> {
         quests.forEach {
             if (it.id == id) {
-                return it
+                return MutableLiveData(it)
             }
         }
         throw IllegalArgumentException("No Quest with provided ID found!")
