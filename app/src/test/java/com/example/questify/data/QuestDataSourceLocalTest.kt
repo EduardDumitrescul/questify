@@ -51,4 +51,19 @@ class QuestDataSourceLocalTest {
         }
     }
 
+    @Test
+    fun getQuests() {
+        val quests = mutableListOf(
+            QuestModel(name = "quest 1"),
+            QuestModel(name = "quest 2"),
+            QuestModel(name = "quest 3")
+        )
+        quests.forEach {
+            dataSource.addQuest(it)
+        }
+
+        val retrievedQuests: LiveData<List<QuestModel>> = dataSource.getQuests()
+
+        assertEquals(retrievedQuests.value, quests)
+    }
 }

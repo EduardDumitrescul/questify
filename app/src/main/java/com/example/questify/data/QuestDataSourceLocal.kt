@@ -23,5 +23,9 @@ class QuestDataSourceLocal {
         throw IllegalArgumentException("No Quest with provided ID found!")
     }
 
+    fun getQuests(): LiveData<List<QuestModel>> {
+        return MutableLiveData(quests)
+    }
+
     fun getNumberOfQuests() = quests.size
 }
