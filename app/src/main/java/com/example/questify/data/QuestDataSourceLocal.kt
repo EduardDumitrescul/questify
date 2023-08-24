@@ -1,6 +1,7 @@
 package com.example.questify.data
 
 import com.example.questify.QuestModel
+import java.lang.IllegalArgumentException
 import java.util.UUID
 
 class QuestDataSourceLocal {
@@ -13,11 +14,11 @@ class QuestDataSourceLocal {
 
     fun getQuestById(id: UUID): QuestModel {
         quests.forEach {
-            if(it.id == id) {
+            if (it.id == id) {
                 return it
             }
         }
-        return QuestModel()
+        throw IllegalArgumentException("No Quest with provided ID found!")
     }
 
     fun getNumberOfQuests() = quests.size

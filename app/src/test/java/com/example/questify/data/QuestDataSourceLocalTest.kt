@@ -6,6 +6,7 @@ import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
+import java.util.UUID
 
 @Config(sdk=[33])
 @RunWith(AndroidJUnit4::class)
@@ -36,6 +37,17 @@ class QuestDataSourceLocalTest {
         val retrievedQuest: QuestModel = dataSource.getQuestById(quest.id)
 
         assertEquals(quest, retrievedQuest)
+    }
+
+    @Test()
+    fun getQuestById_invalidId()  {
+        try {
+            dataSource.getQuestById(UUID.randomUUID())
+            fail("Expected IllegalArgumentException to be thrown")
+        }
+        catch (ex: IllegalArgumentException) {
+            assertEquals(ex.message, "No Quest with provided ID found!")
+        }
     }
 
 }
