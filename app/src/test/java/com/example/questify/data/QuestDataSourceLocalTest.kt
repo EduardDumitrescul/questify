@@ -12,7 +12,7 @@ import java.util.UUID
 @Config(sdk=[33])
 @RunWith(AndroidJUnit4::class)
 class QuestDataSourceLocalTest {
-    private val dataSource = QuestDataSourceLocal()
+    private val dataSource: QuestRepository = QuestDataSourceLocal()
 
     private val quests = mutableListOf(
         QuestModel(name = "quest 1"),
