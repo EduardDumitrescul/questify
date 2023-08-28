@@ -8,9 +8,12 @@ import androidx.compose.ui.platform.testTag
 
 @Composable
 fun QuestCard(
-    questName: String = ""
+    modifier: Modifier = Modifier,
+    questName: String = "",
 ) {
-    ElevatedCard {
+    ElevatedCard(
+        modifier = modifier.testTag("Quest Card")
+    ) {
         Text(
             questName,
             modifier = Modifier.testTag("Quest Name")
