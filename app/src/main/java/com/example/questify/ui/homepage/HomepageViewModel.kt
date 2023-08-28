@@ -1,4 +1,4 @@
-package com.example.questify
+package com.example.questify.ui.homepage
 
 import androidx.lifecycle.ViewModel
 import com.example.questify.data.QuestRepository
