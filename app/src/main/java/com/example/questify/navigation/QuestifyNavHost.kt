@@ -16,10 +16,10 @@ fun QuestifyNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "Homepage",
+        startDestination = Homepage.route,
         modifier = modifier
     ) {
-        composable(route = "Homepage") {
+        composable(route = Homepage.route) {
             val viewmodel = hiltViewModel<HomepageViewModel>()
             HomepageScreen(viewModel = viewmodel)
         }
