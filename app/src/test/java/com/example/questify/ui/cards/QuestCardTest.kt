@@ -44,8 +44,8 @@ class QuestCardTest {
             .onNodeWithTag("Quest Card", useUnmergedTree = true)
             .performClick()
         println(composeTestRule.onRoot(useUnmergedTree = true).printToString())
-//        composeTestRule
-//            .onNodeWithTag("body", useUnmergedTree = true)
-//            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithTag("body", useUnmergedTree = true)
+            .assertExists()
     }
 }
