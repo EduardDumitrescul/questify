@@ -1,10 +1,11 @@
 package com.example.questify
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.questify.ui.homepage.HomepageScreen
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.rememberNavController
+import com.example.questify.navigation.QuestifyNavHost
 import com.example.questify.ui.theme.QuestifyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -12,12 +13,19 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("DASDAs", "ASDASDA")
         setContent {
-            QuestifyTheme {
-                HomepageScreen()
-
-            }
+            Questify()
         }
+    }
+}
+
+
+@Composable
+fun Questify() {
+    QuestifyTheme {
+        val navController = rememberNavController()
+        QuestifyNavHost(
+            navController = navController,
+        )
     }
 }

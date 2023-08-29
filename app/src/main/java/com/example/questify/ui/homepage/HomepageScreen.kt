@@ -7,13 +7,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.questify.ui.cards.QuestCard
 
 @Composable
 fun HomepageScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomepageViewModel = viewModel(),
+    viewModel: HomepageViewModel = hiltViewModel(),
 ){
     val quests by viewModel.quests.observeAsState()
 

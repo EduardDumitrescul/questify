@@ -3,6 +3,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
+    kotlin("kapt")
     id("dagger.hilt.android.plugin")
 }
 
@@ -22,6 +23,8 @@ android {
             useSupportLibrary = true
         }
     }
+
+
 
     buildTypes {
         release {
@@ -67,6 +70,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation ("androidx.compose.runtime:runtime-livedata")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.navigation:navigation-testing:2.7.1")
+    implementation("androidx.test:runner:1.5.2")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.9")
     testImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -83,4 +88,11 @@ dependencies {
     //hilt
     implementation ("com.google.dagger:hilt-android:2.46.1")
     kapt ("com.google.dagger:hilt-android-compiler:2.46.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
+    testImplementation("com.google.dagger:hilt-android-testing:2.46.1")
+    kaptTest("com.google.dagger:hilt-android-compiler:2.46.1")
+
+    val nav_version = "2.7.1"
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 }
