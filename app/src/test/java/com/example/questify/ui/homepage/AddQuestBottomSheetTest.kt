@@ -1,5 +1,6 @@
 package com.example.questify.ui.homepage
 
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -28,5 +29,21 @@ class AddQuestBottomSheetTest {
         composeTestRule
             .onNodeWithText("New Quest")
             .assertExists()
+    }
+
+    @Test
+    fun verifyFieldsDisplayed() {
+        composeTestRule
+            .onNodeWithText("Name")
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText("Description")
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText("Target")
+            .assertIsDisplayed()
+        composeTestRule
+            .onNodeWithText("Deadline")
+            .assertIsDisplayed()
     }
 }
