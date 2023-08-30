@@ -15,6 +15,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,7 +33,21 @@ fun HomepageScreen(
 ){
     val quests by viewModel.quests.observeAsState()
 
-    val state = HomepageScreenState(quests)
+    var state by remember {
+        mutableStateOf(
+            HomepageScreenState(quests = quests)
+        )
+    }
+    state.onClickAddQuest = {
+        state = state.copy(
+            showAddQuestBottomSheet = true
+        )
+    }
+    state.onBottomSheetDismissRequest = {
+        state = state.copy (
+            showAddQuestBottomSheet = false
+        )
+    }
 
     HomepageScreenStateless(
         modifier = modifier,
@@ -48,7 +65,7 @@ fun HomepageScreenStateless(
         modifier =  modifier.testTag("Homepage Screen"),
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {  },
+                onClick = state.onClickAddQuest,
                 modifier = Modifier
                     .testTag("FAB")
                     .width(64.dp)
@@ -72,11 +89,20 @@ fun HomepageScreenStateless(
             }
 
         }
+
+        if(state.showAddQuestBottomSheet) {
+            AddQuestBottomSheet(
+                onDismissRequest = state.onBottomSheetDismissRequest
+            )
+        }
     }
 }
 
 data class HomepageScreenState(
-    var quests: List<QuestModel>? = listOf()
+    var quests: List<QuestModel>? = listOf(),
+    var onClickAddQuest: () -> Unit = {},
+    var showAddQuestBottomSheet: Boolean = false,
+    var onBottomSheetDismissRequest: () -> Unit = {}
 )
 
 @Preview(widthDp = 360, heightDp = 640)

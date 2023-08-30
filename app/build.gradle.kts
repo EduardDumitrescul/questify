@@ -69,7 +69,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation ("androidx.compose.runtime:runtime-livedata")
-    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3-android:1.2.0-alpha06")
     implementation("androidx.navigation:navigation-testing:2.7.1")
     implementation("androidx.test:runner:1.5.2")
     testImplementation("junit:junit:4.13.2")

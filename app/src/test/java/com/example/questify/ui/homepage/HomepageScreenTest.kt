@@ -7,6 +7,7 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.questify.QuestModel
 import com.example.questify.data.QuestDataSourceLocal
@@ -56,5 +57,15 @@ class HomepageScreenTest {
             .assertIsDisplayed()
             .assertHasClickAction()
             .assertIsEnabled()
+    }
+
+    @Test
+    fun FABclick_showAddQuestBottomSheet() {
+        composeTestRule
+            .onNodeWithTag("FAB")
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Add Quest Bottom Sheet")
+            .assertExists()
     }
 }
