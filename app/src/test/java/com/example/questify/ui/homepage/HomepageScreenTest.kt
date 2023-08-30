@@ -8,6 +8,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeDown
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.questify.QuestModel
 import com.example.questify.data.QuestDataSourceLocal
@@ -67,5 +69,20 @@ class HomepageScreenTest {
         composeTestRule
             .onNodeWithTag("Add Quest Bottom Sheet")
             .assertExists()
+    }
+
+    @Test
+    fun BottomSheetSwipeDown_hide() {
+        composeTestRule
+            .onNodeWithTag("FAB")
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Add Quest Bottom Sheet")
+            .performTouchInput {
+                swipeDown()
+            }
+        composeTestRule
+            .onNodeWithTag("Add Quest Bottom Sheet")
+            .assertDoesNotExist()
     }
 }
