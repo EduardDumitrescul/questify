@@ -1,8 +1,12 @@
 package com.example.questify.ui.homepage
 
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertHasClickAction
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.questify.QuestModel
 import com.example.questify.data.QuestDataSourceLocal
@@ -43,5 +47,14 @@ class HomepageScreenTest {
     @Test
     fun questCardsDisplayed() {
         composeTestRule.onAllNodesWithTag("Quest Card").assertCountEquals(dataSource.getNumberOfQuests())
+    }
+
+    @Test
+    fun FABDisplayed() {
+        composeTestRule
+            .onNodeWithTag("FAB")
+            .assertIsDisplayed()
+            .assertHasClickAction()
+            .assertIsEnabled()
     }
 }
