@@ -37,9 +37,17 @@ class QuestModelTest {
     fun checkQuestSetters() {
         quest.name = "new name"
         quest.description = "description"
+        quest.deadlineDate = LocalDate.MAX
+        quest.endDate = LocalDate.MAX
+        quest.targetReps = 100
+        quest.currentReps = 100
 
         assertEquals(quest.name, "new name")
         assertEquals(quest.description, "description")
+        assertEquals(quest.deadlineDate, LocalDate.MAX)
+        assertEquals(quest.endDate, LocalDate.MAX)
+        assertEquals(quest.targetReps, 100)
+        assertEquals(quest.currentReps, 100)
     }
 
 
