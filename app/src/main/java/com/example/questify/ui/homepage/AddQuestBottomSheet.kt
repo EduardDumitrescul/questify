@@ -34,6 +34,11 @@ fun AddQuestBottomSheet(
             showNameTextInputDialog = true,
         )
     }
+    state.onDescriptionFieldClick = {
+        state = state.copy(
+            showDescriptionTextInputDialog = true,
+        )
+    }
 
     AddQuestBottomSheetStateless(
         state = state,
@@ -52,6 +57,11 @@ fun AddQuestBottomSheetStateless(
             modifier = Modifier.testTag("Text Input Dialog")
         )
     }
+    if(state.showDescriptionTextInputDialog) {
+        TextInputDialog(
+            modifier = Modifier.testTag("Description Input Dialog"),
+        )
+    }
 
     ModalBottomSheet(
         modifier = modifier.testTag("Add Quest Bottom Sheet"),
@@ -64,7 +74,10 @@ fun AddQuestBottomSheetStateless(
                 name = state.quest.name,
                 onClick = state.onNameFieldClick,
             )
-            DescriptionFieldRow(description = state.quest.description)
+            DescriptionFieldRow(
+                description = state.quest.description,
+                onClick = state.onDescriptionFieldClick,
+            )
             TargetFieldRow(target = state.quest.targetReps)
             DeadlineFieldRow(deadline = state.quest.deadlineDate)
         }
@@ -76,6 +89,8 @@ data class AddQuestBottomSheetState(
     val quest: QuestModel = QuestModel(),
     var onNameFieldClick: () -> Unit = {},
     var showNameTextInputDialog: Boolean = false,
+    var onDescriptionFieldClick: () -> Unit = {},
+    var showDescriptionTextInputDialog: Boolean = false,
 )
 
 @Composable
@@ -101,7 +116,8 @@ fun NameFieldRow(
 
 @Composable
 fun DescriptionFieldRow(
-    description: String
+    description: String,
+    onClick: () -> Unit = {},
 ) {
     FieldRow(
         contentBegin = {
@@ -112,7 +128,10 @@ fun DescriptionFieldRow(
                 text = description,
                 modifier = Modifier.testTag("Description Field")
             )
-        }
+        },
+        modifier = Modifier
+            .testTag("Description Field Row")
+            .clickable { onClick() }
     )
 }
 
