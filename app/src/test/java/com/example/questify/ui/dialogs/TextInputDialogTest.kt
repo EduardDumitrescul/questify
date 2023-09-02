@@ -3,6 +3,7 @@ package com.example.questify.ui.dialogs
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.*
 import org.junit.Before
@@ -20,7 +21,7 @@ class TextInputDialogTest {
     @Before
     fun init() {
         composeTestRule.setContent {
-            TextInputDialog()
+            TextInputDialog(initialValue = "initial value")
         }
     }
 
@@ -35,5 +36,18 @@ class TextInputDialogTest {
         composeTestRule
             .onNodeWithTag("Confirm Button")
             .assertTextEquals("OK")
+    }
+
+    @Test
+    fun textField_enterInput_verifyInput() {
+        composeTestRule
+            .onNodeWithTag("Text Field")
+            .assertTextEquals("initial value")
+        composeTestRule
+            .onNodeWithTag("Text Field")
+            .performTextInput("test input")
+        composeTestRule
+            .onNodeWithTag("Text Field")
+            .assertTextEquals("test input")
     }
 }
