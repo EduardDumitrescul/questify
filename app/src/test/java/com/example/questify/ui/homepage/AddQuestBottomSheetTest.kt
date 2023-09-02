@@ -5,6 +5,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToString
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.questify.QuestModel
@@ -54,18 +55,28 @@ class AddQuestBottomSheetTest {
     @Test
     fun verifyFieldValuesDisplayed() {
         val quest = QuestModel()
-        println(composeTestRule.onNodeWithTag("Add Quest Bottom Sheet" ,useUnmergedTree = true).printToString())
+        println(composeTestRule.onNodeWithTag("Add Quest Bottom Sheet").printToString())
         composeTestRule
-            .onNodeWithTag("Name Field")
+            .onNodeWithTag("Name Field", useUnmergedTree = true)
             .assertTextEquals(quest.name)
         composeTestRule
-            .onNodeWithTag("Description Field")
+            .onNodeWithTag("Description Field", useUnmergedTree = true)
             .assertTextEquals(quest.description)
         composeTestRule
-            .onNodeWithTag("Target Field")
+            .onNodeWithTag("Target Field", useUnmergedTree = true)
             .assertTextEquals(quest.targetReps.toString())
         composeTestRule
-            .onNodeWithTag("Deadline Field")
+            .onNodeWithTag("Deadline Field", useUnmergedTree = true)
             .assertTextEquals(quest.deadlineDate.toString())
+    }
+
+    @Test
+    fun NameField_performClick_openDialog() {
+        composeTestRule
+            .onNodeWithTag("Name Field Row")
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Text Input Dialog")
+            .assertExists()
     }
 }
