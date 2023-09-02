@@ -24,6 +24,7 @@ import androidx.compose.ui.window.Dialog
 fun TextInputDialog(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {},
+    onConfirm: (String) -> Unit = {},
     initialValue: String = "",
 ) {
     var value by remember {
@@ -70,7 +71,9 @@ fun TextInputDialog(
                 }
 
                 TextButton(
-                    onClick = {},
+                    onClick = {
+                        onConfirm(value.text)
+                    },
                     modifier = Modifier.testTag("Confirm Button"),
                 ) {
                     Text(
