@@ -101,6 +101,25 @@ class AddQuestBottomSheetTest {
     }
 
     @Test
+    fun DescriptionField_writeTextToDialog_cancel() {
+        composeTestRule
+            .onNodeWithTag("Description Field Row")
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Text Field")
+            .performTextInput("input description")
+        composeTestRule
+            .onNodeWithTag("Cancel Button")
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Description Input Dialog")
+            .assertDoesNotExist()
+        composeTestRule
+            .onNodeWithTag("Description Field", useUnmergedTree = true)
+            .assertTextEquals(QuestModel().description)
+    }
+
+    @Test
     fun NameField_writeTextToDialog_save() {
         composeTestRule
             .onNodeWithTag("Name Field Row")

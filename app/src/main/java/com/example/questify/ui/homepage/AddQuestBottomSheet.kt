@@ -48,6 +48,11 @@ fun AddQuestBottomSheet(
             showDescriptionTextInputDialog = true,
         )
     }
+    state.closeDescriptionInputDialog = {
+        state = state.copy(
+            showDescriptionTextInputDialog = false
+        )
+    }
 
     AddQuestBottomSheetStateless(
         state = state,
@@ -74,7 +79,9 @@ fun AddQuestBottomSheetStateless(
     if(state.showDescriptionTextInputDialog) {
         TextInputDialog(
             modifier = Modifier.testTag("Description Input Dialog"),
-        )
+            onDismissRequest = state.closeDescriptionInputDialog,
+
+            )
     }
 
     ModalBottomSheet(
@@ -106,6 +113,7 @@ data class AddQuestBottomSheetState(
     var closeNameTextInputDialog: () -> Unit = {},
     var saveName: (String) -> Unit = {},
     var onDescriptionFieldClick: () -> Unit = {},
+    var closeDescriptionInputDialog: () -> Unit = {},
     var showDescriptionTextInputDialog: Boolean = false,
 )
 
