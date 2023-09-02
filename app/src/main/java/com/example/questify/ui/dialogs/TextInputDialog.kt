@@ -61,7 +61,7 @@ fun TextInputDialog(
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 TextButton(
-                    onClick = {  },
+                    onClick = onDismissRequest,
                     modifier = Modifier.testTag("Cancel Button"),
                 ) {
                     Text(

@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.printToString
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.questify.QuestModel
@@ -78,6 +79,25 @@ class AddQuestBottomSheetTest {
         composeTestRule
             .onNodeWithTag("Text Input Dialog")
             .assertExists()
+    }
+
+    @Test
+    fun NameField_writeTextToDialog_cancel() {
+        composeTestRule
+            .onNodeWithTag("Name Field Row")
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Text Field")
+            .performTextInput("input name")
+        composeTestRule
+            .onNodeWithTag("Cancel Button")
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Text Input Dialog")
+            .assertDoesNotExist()
+        composeTestRule
+            .onNodeWithTag("Name Field", useUnmergedTree = true)
+            .assertTextEquals(QuestModel().name)
     }
 
     @Test

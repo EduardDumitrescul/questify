@@ -34,6 +34,11 @@ fun AddQuestBottomSheet(
             showNameTextInputDialog = true,
         )
     }
+    state.closeNameTextInputDialog = {
+        state = state.copy(
+            showNameTextInputDialog = false
+        )
+    }
     state.onDescriptionFieldClick = {
         state = state.copy(
             showDescriptionTextInputDialog = true,
@@ -54,7 +59,8 @@ fun AddQuestBottomSheetStateless(
 ) {
     if(state.showNameTextInputDialog){
         TextInputDialog(
-            modifier = Modifier.testTag("Text Input Dialog")
+            modifier = Modifier.testTag("Text Input Dialog"),
+            onDismissRequest = state.closeNameTextInputDialog
         )
     }
     if(state.showDescriptionTextInputDialog) {
@@ -89,6 +95,7 @@ data class AddQuestBottomSheetState(
     val quest: QuestModel = QuestModel(),
     var onNameFieldClick: () -> Unit = {},
     var showNameTextInputDialog: Boolean = false,
+    var closeNameTextInputDialog: () -> Unit = {},
     var onDescriptionFieldClick: () -> Unit = {},
     var showDescriptionTextInputDialog: Boolean = false,
 )
