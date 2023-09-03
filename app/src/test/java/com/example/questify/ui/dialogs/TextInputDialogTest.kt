@@ -3,6 +3,7 @@ package com.example.questify.ui.dialogs
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.*
@@ -31,11 +32,11 @@ class TextInputDialogTest {
             .onNodeWithTag("Text Field")
             .assertExists()
         composeTestRule
-            .onNodeWithTag("Cancel Button")
-            .assertTextEquals("Cancel")
+            .onNodeWithText("Cancel")
+            .assertExists()
         composeTestRule
-            .onNodeWithTag("Confirm Button")
-            .assertTextEquals("OK")
+            .onNodeWithText("OK")
+            .assertExists()
     }
 
     @Test

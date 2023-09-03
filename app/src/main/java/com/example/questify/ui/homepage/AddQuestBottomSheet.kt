@@ -42,7 +42,7 @@ fun AddQuestBottomSheetStateless(
         TextInputDialog(
             modifier = Modifier.testTag("Text Input Dialog"),
             onDismissRequest = state.closeNameTextInputDialog,
-            onConfirm = {
+            onComplete = {
                 state.saveName(it)
                 state.closeNameTextInputDialog()
             },
@@ -52,7 +52,7 @@ fun AddQuestBottomSheetStateless(
         TextInputDialog(
             modifier = Modifier.testTag("Description Input Dialog"),
             onDismissRequest = state.closeDescriptionInputDialog,
-            onConfirm = {
+            onComplete = {
                 state.saveDescription(it)
                 state.closeDescriptionInputDialog()
             }
@@ -61,6 +61,8 @@ fun AddQuestBottomSheetStateless(
     if(state.showTargetInputDialog) {
         NumberInputDialog(
             modifier = Modifier.testTag("Target Input Dialog"),
+            onDismissRequest = {},
+            onComplete = {},
         )
     }
 

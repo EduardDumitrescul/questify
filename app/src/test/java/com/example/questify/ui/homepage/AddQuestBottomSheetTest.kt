@@ -90,7 +90,7 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag("Text Field")
             .performTextInput("input name")
         composeTestRule
-            .onNodeWithTag("Cancel Button")
+            .onNodeWithText("Cancel")
             .performClick()
         composeTestRule
             .onNodeWithTag("Text Input Dialog")
@@ -109,7 +109,7 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag("Text Field")
             .performTextInput("input description")
         composeTestRule
-            .onNodeWithTag("Cancel Button")
+            .onNodeWithText("Cancel")
             .performClick()
         composeTestRule
             .onNodeWithTag("Description Input Dialog")
@@ -128,7 +128,7 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag("Text Field")
             .performTextInput("input name")
         composeTestRule
-            .onNodeWithTag("Confirm Button")
+            .onNodeWithText("OK")
             .performClick()
         composeTestRule
             .onNodeWithTag("Text Input Dialog")
@@ -147,7 +147,7 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag("Text Field")
             .performTextInput("input description")
         composeTestRule
-            .onNodeWithTag("Confirm Button")
+            .onNodeWithText("OK")
             .performClick()
         composeTestRule
             .onNodeWithTag("Text Input Dialog")

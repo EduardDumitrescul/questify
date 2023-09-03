@@ -1,11 +1,6 @@
 package com.example.questify.ui.dialogs
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,13 +13,12 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.window.Dialog
 
 @Composable
 fun TextInputDialog(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {},
-    onConfirm: (String) -> Unit = {},
+    onComplete: (String) -> Unit = {},
     initialValue: String = "",
 ) {
     var value by remember {
@@ -34,12 +28,13 @@ fun TextInputDialog(
     }
     val focusRequester = remember { FocusRequester() }
 
-    Dialog(
+    TwoButtonDialog(
+        modifier = modifier,
         onDismissRequest = onDismissRequest,
+        onComplete = {
+            onComplete(value.text)
+        }
     ) {
-        Column(
-            modifier = modifier.testTag("Text Input Dialog"),
-        ) {
             OutlinedTextField(
                 value = value,
                 onValueChange = { textFieldValue: TextFieldValue ->
@@ -57,30 +52,5 @@ fun TextInputDialog(
 
                     },
             )
-
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround
-            ) {
-                TextButton(
-                    onClick = onDismissRequest,
-                    modifier = Modifier.testTag("Cancel Button"),
-                ) {
-                    Text(
-                        text = "Cancel"
-                    )
-                }
-
-                TextButton(
-                    onClick = {
-                        onConfirm(value.text)
-                    },
-                    modifier = Modifier.testTag("Confirm Button"),
-                ) {
-                    Text(
-                        text = "OK"
-                    )
-                }
-            }
-        }
     }
 }
