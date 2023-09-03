@@ -213,5 +213,24 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag(TEXT_FIELD)
             .assertTextEquals(QuestModel().targetReps.toString())
     }
+
+    @Test
+    fun TargetField_writeToDialog_cancel() {
+        composeTestRule
+            .onNodeWithText(TARGET)
+            .performClick()
+        composeTestRule
+            .onNodeWithTag(TEXT_FIELD)
+            .performTextInput("123")
+        composeTestRule
+            .onNodeWithText(CANCEL)
+            .performClick()
+        composeTestRule
+            .onNodeWithTag(NUMBER_INPUT_DIALOG)
+            .assertDoesNotExist()
+        composeTestRule
+            .onNodeWithTag(TARGET_FIELD, useUnmergedTree = true)
+            .assertTextEquals(QuestModel().targetReps.toString())
+    }
 }
 

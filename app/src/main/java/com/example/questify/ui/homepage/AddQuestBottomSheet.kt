@@ -61,7 +61,7 @@ fun AddQuestBottomSheetStateless(
     if(state.showTargetInputDialog) {
         NumberInputDialog(
             modifier = Modifier.testTag("Number Input Dialog"),
-            onDismissRequest = {},
+            onDismissRequest = state.closeTargetInputDialog,
             onComplete = {},
             initialValue = state.quest.targetReps.toString(),
         )
@@ -132,6 +132,9 @@ class AddQuestBottomSheetState(
     var showTargetInputDialog by mutableStateOf(false)
     var onTargetFieldClick = {
         showTargetInputDialog = true
+    }
+    var closeTargetInputDialog = {
+        showTargetInputDialog = false
     }
 }
 
