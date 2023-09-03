@@ -17,6 +17,33 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
+
+private const val NEW_QUEST = "New Quest"
+private const val ADD_QUEST_BOTTOM_SHEET = "Add Quest Bottom Sheet"
+private const val TEXT_INPUT_DIALOG = "Text Input Dialog"
+private const val NUMBER_INPUT_DIALOG = "Number Input Dialog"
+private const val TEXT_FIELD = "Text Field"
+private const val CANCEL = "Cancel"
+private const val OK = "OK"
+
+private const val NAME = "Name"
+private const val NAME_ROW = "Name Field Row"
+private const val NAME_FIELD = "Name Field"
+
+private const val DESCRIPTION = "Description"
+private const val DESCRIPTION_ROW = "Description Field Row"
+private const val DESCRIPTION_FIELD = "Description Field"
+private const val DESCRIPTION_INPUT_DIALOG = "Description Input Dialog"
+
+private const val TARGET = "Target"
+private const val TARGET_ROW = "Target Field Row"
+private const val TARGET_FIELD = "Target Field"
+
+private const val DEADLINE = "Deadline"
+private const val DEADLINE_FIELD = "Deadline Field"
+
+
+
 @Config(sdk = [33])
 @RunWith(AndroidJUnit4::class)
 class AddQuestBottomSheetTest {
@@ -33,148 +60,148 @@ class AddQuestBottomSheetTest {
     @Test
     fun verifyTitleDisplayed() {
         composeTestRule
-            .onNodeWithText("New Quest")
+            .onNodeWithText(NEW_QUEST)
             .assertExists()
     }
 
     @Test
     fun verifyFieldsDisplayed() {
         composeTestRule
-            .onNodeWithText("Name")
+            .onNodeWithText(NAME)
             .assertIsDisplayed()
         composeTestRule
-            .onNodeWithText("Description")
+            .onNodeWithText(DESCRIPTION)
             .assertIsDisplayed()
         composeTestRule
-            .onNodeWithText("Target")
+            .onNodeWithText(TARGET)
             .assertIsDisplayed()
         composeTestRule
-            .onNodeWithText("Deadline")
+            .onNodeWithText(DEADLINE)
             .assertIsDisplayed()
     }
 
     @Test
     fun verifyFieldValuesDisplayed() {
         val quest = QuestModel()
-        println(composeTestRule.onNodeWithTag("Add Quest Bottom Sheet").printToString())
+        println(composeTestRule.onNodeWithTag(ADD_QUEST_BOTTOM_SHEET).printToString())
         composeTestRule
-            .onNodeWithTag("Name Field", useUnmergedTree = true)
+            .onNodeWithTag(NAME_FIELD, useUnmergedTree = true)
             .assertTextEquals(quest.name)
         composeTestRule
-            .onNodeWithTag("Description Field", useUnmergedTree = true)
+            .onNodeWithTag(DESCRIPTION_FIELD, useUnmergedTree = true)
             .assertTextEquals(quest.description)
         composeTestRule
-            .onNodeWithTag("Target Field", useUnmergedTree = true)
+            .onNodeWithTag(TARGET_FIELD, useUnmergedTree = true)
             .assertTextEquals(quest.targetReps.toString())
         composeTestRule
-            .onNodeWithTag("Deadline Field", useUnmergedTree = true)
+            .onNodeWithTag(DEADLINE_FIELD, useUnmergedTree = true)
             .assertTextEquals(quest.deadlineDate.toString())
     }
 
     @Test
     fun NameField_performClick_openDialog() {
         composeTestRule
-            .onNodeWithTag("Name Field Row")
+            .onNodeWithTag(NAME_ROW)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Text Input Dialog")
+            .onNodeWithTag(TEXT_INPUT_DIALOG)
             .assertExists()
     }
 
     @Test
     fun NameField_writeTextToDialog_cancel() {
         composeTestRule
-            .onNodeWithTag("Name Field Row")
+            .onNodeWithTag(NAME_ROW)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Text Field")
+            .onNodeWithTag(TEXT_FIELD)
             .performTextInput("input name")
         composeTestRule
-            .onNodeWithText("Cancel")
+            .onNodeWithText(CANCEL)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Text Input Dialog")
+            .onNodeWithTag(TEXT_INPUT_DIALOG)
             .assertDoesNotExist()
         composeTestRule
-            .onNodeWithTag("Name Field", useUnmergedTree = true)
+            .onNodeWithTag(NAME_FIELD, useUnmergedTree = true)
             .assertTextEquals(QuestModel().name)
     }
 
     @Test
     fun DescriptionField_writeTextToDialog_cancel() {
         composeTestRule
-            .onNodeWithTag("Description Field Row")
+            .onNodeWithTag(DESCRIPTION_ROW)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Text Field")
+            .onNodeWithTag(TEXT_FIELD)
             .performTextInput("input description")
         composeTestRule
-            .onNodeWithText("Cancel")
+            .onNodeWithText(CANCEL)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Description Input Dialog")
+            .onNodeWithTag(DESCRIPTION_INPUT_DIALOG)
             .assertDoesNotExist()
         composeTestRule
-            .onNodeWithTag("Description Field", useUnmergedTree = true)
+            .onNodeWithTag(DESCRIPTION_FIELD, useUnmergedTree = true)
             .assertTextEquals(QuestModel().description)
     }
 
     @Test
     fun NameField_writeTextToDialog_save() {
         composeTestRule
-            .onNodeWithTag("Name Field Row")
+            .onNodeWithTag(NAME_ROW)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Text Field")
+            .onNodeWithTag(TEXT_FIELD)
             .performTextInput("input name")
         composeTestRule
-            .onNodeWithText("OK")
+            .onNodeWithText(OK)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Text Input Dialog")
+            .onNodeWithTag(TEXT_INPUT_DIALOG)
             .assertDoesNotExist()
         composeTestRule
-            .onNodeWithTag("Name Field", useUnmergedTree = true)
+            .onNodeWithTag(NAME_FIELD, useUnmergedTree = true)
             .assertTextEquals("input name")
     }
 
     @Test
     fun DescriptionField_writeTextToDialog_save() {
         composeTestRule
-            .onNodeWithTag("Description Field Row")
+            .onNodeWithTag(DESCRIPTION_ROW)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Text Field")
+            .onNodeWithTag(TEXT_FIELD)
             .performTextInput("input description")
         composeTestRule
-            .onNodeWithText("OK")
+            .onNodeWithText(OK)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Text Input Dialog")
+            .onNodeWithTag(TEXT_INPUT_DIALOG)
             .assertDoesNotExist()
         composeTestRule
-            .onNodeWithTag("Description Field", useUnmergedTree = true)
+            .onNodeWithTag(DESCRIPTION_FIELD, useUnmergedTree = true)
             .assertTextEquals("input description")
     }
 
     @Test
     fun DescriptionField_performClick_openDialog() {
         composeTestRule
-            .onNodeWithTag("Description Field Row")
+            .onNodeWithTag(DESCRIPTION_ROW)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Description Input Dialog")
+            .onNodeWithTag(DESCRIPTION_INPUT_DIALOG)
             .assertExists()
     }
 
     @Test
     fun TargetField_performClick_openDialog() {
         composeTestRule
-            .onNodeWithTag("Target Field Row")
+            .onNodeWithTag(TARGET_ROW)
             .performClick()
         composeTestRule
-            .onNodeWithTag("Target Input Dialog")
+            .onNodeWithTag(NUMBER_INPUT_DIALOG)
             .assertExists()
     }
-
 }
+
