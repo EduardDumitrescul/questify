@@ -1,5 +1,6 @@
 package com.example.questify.ui.dialogs
 
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -12,6 +13,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.text.isDigitsOnly
 
@@ -44,8 +46,10 @@ fun NumberInputDialog(
                 } else {
                     value = TextFieldValue("")
                 }
-
             },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Number
+            ) ,
             modifier = Modifier
                 .testTag("Text Field")
                 .focusRequester(focusRequester)
