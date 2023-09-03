@@ -21,7 +21,7 @@ import androidx.core.text.isDigitsOnly
 fun NumberInputDialog(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {},
-    onComplete: () -> Unit = {},
+    onComplete: (Int) -> Unit = {},
     initialValue: String = "",
 ) {
     var value by remember {
@@ -35,7 +35,9 @@ fun NumberInputDialog(
     TwoButtonDialog(
         modifier = modifier,
         onDismissRequest = onDismissRequest,
-        onComplete = onComplete
+        onComplete = {
+            onComplete(value.text.toInt())
+        }
     ) {
         OutlinedTextField(
             value = value,
