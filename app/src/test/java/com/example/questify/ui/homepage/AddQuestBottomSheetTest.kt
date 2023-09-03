@@ -22,6 +22,7 @@ private const val NEW_QUEST = "New Quest"
 private const val ADD_QUEST_BOTTOM_SHEET = "Add Quest Bottom Sheet"
 private const val TEXT_INPUT_DIALOG = "Text Input Dialog"
 private const val NUMBER_INPUT_DIALOG = "Number Input Dialog"
+private const val PERIOD_INPUT_DIALOG = "Period Input Dialog"
 private const val TEXT_FIELD = "Text Field"
 private const val CANCEL = "Cancel"
 private const val OK = "OK"
@@ -41,6 +42,7 @@ private const val TARGET_FIELD = "Target Field"
 
 private const val DEADLINE = "Deadline"
 private const val DEADLINE_FIELD = "Deadline Field"
+private const val DEADLINE_ROW = "Deadline Row"
 
 
 
@@ -251,5 +253,16 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag(TARGET_FIELD, useUnmergedTree = true)
             .assertTextEquals("123")
     }
+
+    @Test
+    fun DeadlineField_performClick_openDialog() {
+        composeTestRule
+            .onNodeWithTag(DEADLINE_ROW)
+            .performClick()
+        composeTestRule
+            .onNodeWithTag(PERIOD_INPUT_DIALOG)
+            .assertExists()
+    }
+
 }
 

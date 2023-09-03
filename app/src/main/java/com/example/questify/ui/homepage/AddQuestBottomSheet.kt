@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.testTag
 import com.example.questify.QuestModel
 import com.example.questify.ui.FieldRow
 import com.example.questify.ui.dialogs.NumberInputDialog
+import com.example.questify.ui.dialogs.PeriodInputDialog
 import com.example.questify.ui.dialogs.TextInputDialog
 import java.time.LocalDate
 
@@ -70,6 +71,10 @@ fun AddQuestBottomSheetStateless(
         )
     }
 
+    if(state.showPeriodInputDialog) {
+        PeriodInputDialog()
+    }
+
     ModalBottomSheet(
         modifier = modifier.testTag("Add Quest Bottom Sheet"),
         onDismissRequest = state.onDismissRequest
@@ -89,7 +94,10 @@ fun AddQuestBottomSheetStateless(
                 target = state.quest.targetReps,
                 onClick = state.onTargetFieldClick,
             )
-            DeadlineFieldRow(deadline = state.quest.deadlineDate)
+            DeadlineFieldRow(
+                deadline = state.quest.deadlineDate,
+                onClick = state.onDeadlineFieldClick
+            )
         }
     }
 }
@@ -141,6 +149,11 @@ class AddQuestBottomSheetState(
     }
     var saveTarget: (Int) -> Unit = {
         quest.targetReps = it
+    }
+
+    var showPeriodInputDialog by mutableStateOf(false)
+    var onDeadlineFieldClick = {
+        showPeriodInputDialog = true
     }
 }
 
@@ -209,7 +222,8 @@ fun TargetFieldRow(
 
 @Composable
 fun DeadlineFieldRow(
-    deadline: LocalDate?
+    deadline: LocalDate?,
+     onClick: () -> Unit = {}
 ) {
     FieldRow(
         contentBegin = {
@@ -220,6 +234,9 @@ fun DeadlineFieldRow(
                 text = deadline.toString(),
                 modifier = Modifier.testTag("Deadline Field")
             )
-        }
+        },
+        modifier = Modifier
+            .testTag("Deadline Row")
+            .clickable { onClick() }
     )
 }
