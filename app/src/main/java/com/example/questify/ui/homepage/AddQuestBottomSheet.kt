@@ -6,6 +6,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,41 +23,7 @@ fun AddQuestBottomSheet(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var state by remember {
-        mutableStateOf(
-            AddQuestBottomSheetState(
-                onDismissRequest = onDismissRequest,
-            )
-        )
-    }
-    state.onNameFieldClick = {
-        state = state.copy(
-            showNameTextInputDialog = true,
-        )
-    }
-    state.saveName = {
-        state.quest.name = it
-        state = state.copy()
-    }
-    state.closeNameTextInputDialog = {
-        state = state.copy(
-            showNameTextInputDialog = false
-        )
-    }
-    state.onDescriptionFieldClick = {
-        state = state.copy(
-            showDescriptionTextInputDialog = true,
-        )
-    }
-    state.closeDescriptionInputDialog = {
-        state = state.copy(
-            showDescriptionTextInputDialog = false
-        )
-    }
-    state.saveDescription = {
-        state.quest.description = it
-        state = state.copy()
-    }
+    val state = rememberState(onDismissRequest)
 
     AddQuestBottomSheetStateless(
         state = state,
@@ -80,7 +47,7 @@ fun AddQuestBottomSheetStateless(
             },
         )
     }
-    if(state.showDescriptionTextInputDialog) {
+    if(state.showDescriptionInputDialog) {
         TextInputDialog(
             modifier = Modifier.testTag("Description Input Dialog"),
             onDismissRequest = state.closeDescriptionInputDialog,
@@ -112,18 +79,44 @@ fun AddQuestBottomSheetStateless(
     }
 }
 
-data class AddQuestBottomSheetState(
-    val onDismissRequest: () -> Unit = {},
-    val quest: QuestModel = QuestModel(),
-    var onNameFieldClick: () -> Unit = {},
-    var showNameTextInputDialog: Boolean = false,
-    var closeNameTextInputDialog: () -> Unit = {},
-    var saveName: (String) -> Unit = {},
-    var onDescriptionFieldClick: () -> Unit = {},
-    var closeDescriptionInputDialog: () -> Unit = {},
-    var saveDescription: (String) -> Unit = {},
-    var showDescriptionTextInputDialog: Boolean = false,
-)
+
+@Composable
+private fun rememberState(
+    onDismissRequest: () -> Unit
+) = remember {
+    AddQuestBottomSheetState(
+        onDismissRequest = onDismissRequest
+    )
+}
+
+@Stable
+class AddQuestBottomSheetState(
+    val onDismissRequest: () -> Unit
+) {
+
+    val quest by mutableStateOf(QuestModel())
+    var showNameTextInputDialog by mutableStateOf(false)
+    var onNameFieldClick: () -> Unit = {
+        showNameTextInputDialog = true
+    }
+    var closeNameTextInputDialog: () -> Unit = {
+        showNameTextInputDialog = false
+    }
+    var saveName: (String) -> Unit = {
+        quest.name = it
+    }
+    var showDescriptionInputDialog by mutableStateOf(false)
+    var onDescriptionFieldClick: () -> Unit = {
+        showDescriptionInputDialog = true
+    }
+    var closeDescriptionInputDialog: () -> Unit = {
+        showDescriptionInputDialog = false
+    }
+    var saveDescription: (String) -> Unit = {
+        quest.description = it
+    }
+
+}
 
 @Composable
 fun NameFieldRow(
