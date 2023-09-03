@@ -9,7 +9,7 @@ data class QuestModel (
     var name: String = "Base Quest",
     var description: String = "",
     val startDate: LocalDate = LocalDate.now(),
-    var deadlineDate: LocalDate? = null,
+    var timeLimit: Int? = null,
     var endDate: LocalDate? = null,
     var targetReps: Int = 20,
     var currentReps: Int = 0

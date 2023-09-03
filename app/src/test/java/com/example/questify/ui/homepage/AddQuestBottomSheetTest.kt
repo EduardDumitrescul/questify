@@ -97,7 +97,7 @@ class AddQuestBottomSheetTest {
             .assertTextEquals(quest.targetReps.toString())
         composeTestRule
             .onNodeWithTag(DEADLINE_FIELD, useUnmergedTree = true)
-            .assertTextEquals(quest.deadlineDate.toString())
+            .assertTextEquals(quest.timeLimit.toString())
     }
 
     @Test

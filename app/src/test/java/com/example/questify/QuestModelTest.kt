@@ -27,7 +27,7 @@ class QuestModelTest {
         assertEquals(quest.description, "")
         val date: LocalDate = LocalDate.now()
         assertEquals(quest.startDate, date)
-        assertNull(quest.deadlineDate)
+        assertNull(quest.timeLimit)
         assertNull(quest.endDate)
         assertEquals(quest.targetReps, 20)
         assertEquals(quest.currentReps, 0)
@@ -37,14 +37,14 @@ class QuestModelTest {
     fun checkQuestSetters() {
         quest.name = "new name"
         quest.description = "description"
-        quest.deadlineDate = LocalDate.MAX
+        quest.timeLimit = 100
         quest.endDate = LocalDate.MAX
         quest.targetReps = 100
         quest.currentReps = 100
 
         assertEquals(quest.name, "new name")
         assertEquals(quest.description, "description")
-        assertEquals(quest.deadlineDate, LocalDate.MAX)
+        assertEquals(quest.timeLimit, 100)
         assertEquals(quest.endDate, LocalDate.MAX)
         assertEquals(quest.targetReps, 100)
         assertEquals(quest.currentReps, 100)

@@ -18,7 +18,6 @@ import com.example.questify.ui.FieldRow
 import com.example.questify.ui.dialogs.NumberInputDialog
 import com.example.questify.ui.dialogs.PeriodInputDialog
 import com.example.questify.ui.dialogs.TextInputDialog
-import java.time.LocalDate
 
 @Composable
 fun AddQuestBottomSheet(
@@ -95,7 +94,7 @@ fun AddQuestBottomSheetStateless(
                 onClick = state.onTargetFieldClick,
             )
             DeadlineFieldRow(
-                deadline = state.quest.deadlineDate,
+                deadline = state.quest.timeLimit,
                 onClick = state.onDeadlineFieldClick
             )
         }
@@ -222,8 +221,8 @@ fun TargetFieldRow(
 
 @Composable
 fun DeadlineFieldRow(
-    deadline: LocalDate?,
-     onClick: () -> Unit = {}
+    deadline: Int?,
+    onClick: () -> Unit = {}
 ) {
     FieldRow(
         contentBegin = {
