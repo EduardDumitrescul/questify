@@ -44,7 +44,7 @@ fun NumberInputDialog(
                 } else if(it.text.isDigitsOnly()) {
                     value = it
                 } else {
-                    value = TextFieldValue("")
+                    value = value.copy()
                 }
             },
             keyboardOptions = KeyboardOptions.Default.copy(
