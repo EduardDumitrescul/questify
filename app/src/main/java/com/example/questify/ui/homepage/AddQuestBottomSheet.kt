@@ -63,6 +63,7 @@ fun AddQuestBottomSheetStateless(
             modifier = Modifier.testTag("Number Input Dialog"),
             onDismissRequest = {},
             onComplete = {},
+            initialValue = state.quest.targetReps.toString(),
         )
     }
 

@@ -22,10 +22,11 @@ fun NumberInputDialog(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {},
     onComplete: () -> Unit = {},
+    initialValue: String = "",
 ) {
     var value by remember {
         mutableStateOf(
-            TextFieldValue("")
+            TextFieldValue(initialValue)
         )
     }
     val focusRequester = remember {

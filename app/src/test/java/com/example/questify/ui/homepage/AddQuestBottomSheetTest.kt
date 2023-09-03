@@ -204,5 +204,14 @@ class AddQuestBottomSheetTest {
             .assertExists()
     }
 
+    @Test
+    fun TargetField_writeToDialog_verifyInitialValue() {
+        composeTestRule
+            .onNodeWithText(TARGET)
+            .performClick()
+        composeTestRule
+            .onNodeWithTag(TEXT_FIELD)
+            .assertTextEquals(QuestModel().targetReps.toString())
+    }
 }
 
