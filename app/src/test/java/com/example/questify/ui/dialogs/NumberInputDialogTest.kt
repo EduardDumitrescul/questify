@@ -49,4 +49,17 @@ class NumberInputDialogTest {
             .onNodeWithTag(TEXT_FIELD)
             .assertTextEquals("12467890")
     }
+
+    @Test
+    fun verifyInput_number_startWith0() {
+        composeTestRule
+            .onNodeWithTag(TEXT_FIELD)
+            .performTextInput("0002467890")
+        composeTestRule
+            .onNodeWithTag(TEXT_FIELD)
+            .performTextInput("123")
+        composeTestRule
+            .onNodeWithTag(TEXT_FIELD)
+            .assertTextEquals("123")
+    }
 }

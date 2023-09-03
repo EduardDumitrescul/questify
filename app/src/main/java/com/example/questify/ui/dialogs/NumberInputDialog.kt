@@ -36,7 +36,12 @@ fun NumberInputDialog(
         OutlinedTextField(
             value = value,
             onValueChange = {
-                value = it
+                value = if(it.text.startsWith("0")) {
+                    it.copy(text = "")
+                } else {
+                    it
+                }
+
             },
             modifier = Modifier
                 .testTag("Text Field")
