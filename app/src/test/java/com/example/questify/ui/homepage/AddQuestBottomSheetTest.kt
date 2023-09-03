@@ -166,4 +166,15 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag("Description Input Dialog")
             .assertExists()
     }
+
+    @Test
+    fun TargetField_performClick_openDialog() {
+        composeTestRule
+            .onNodeWithTag("Target Field Row")
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Target Input Dialog")
+            .assertExists()
+    }
+
 }

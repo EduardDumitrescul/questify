@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import com.example.questify.QuestModel
 import com.example.questify.ui.FieldRow
+import com.example.questify.ui.dialogs.NumberInputDialog
 import com.example.questify.ui.dialogs.TextInputDialog
 import java.time.LocalDate
 
@@ -57,6 +58,11 @@ fun AddQuestBottomSheetStateless(
             }
         )
     }
+    if(state.showTargetInputDialog) {
+        NumberInputDialog(
+            modifier = Modifier.testTag("Target Input Dialog"),
+        )
+    }
 
     ModalBottomSheet(
         modifier = modifier.testTag("Add Quest Bottom Sheet"),
@@ -73,7 +79,10 @@ fun AddQuestBottomSheetStateless(
                 description = state.quest.description,
                 onClick = state.onDescriptionFieldClick,
             )
-            TargetFieldRow(target = state.quest.targetReps)
+            TargetFieldRow(
+                target = state.quest.targetReps,
+                onClick = state.onTargetFieldClick,
+            )
             DeadlineFieldRow(deadline = state.quest.deadlineDate)
         }
     }
@@ -105,6 +114,7 @@ class AddQuestBottomSheetState(
     var saveName: (String) -> Unit = {
         quest.name = it
     }
+
     var showDescriptionInputDialog by mutableStateOf(false)
     var onDescriptionFieldClick: () -> Unit = {
         showDescriptionInputDialog = true
@@ -116,6 +126,10 @@ class AddQuestBottomSheetState(
         quest.description = it
     }
 
+    var showTargetInputDialog by mutableStateOf(false)
+    var onTargetFieldClick = {
+        showTargetInputDialog = true
+    }
 }
 
 @Composable
@@ -162,7 +176,8 @@ fun DescriptionFieldRow(
 
 @Composable
 fun TargetFieldRow(
-    target: Int
+    target: Int,
+    onClick: () -> Unit = {},
 ) {
     FieldRow(
         contentBegin = {
@@ -173,7 +188,10 @@ fun TargetFieldRow(
                 text = target.toString(),
                 modifier = Modifier.testTag("Target Field")
             )
-        }
+        },
+        modifier = Modifier
+            .clickable { onClick() }
+            .testTag("Target Field Row")
     )
 }
 
