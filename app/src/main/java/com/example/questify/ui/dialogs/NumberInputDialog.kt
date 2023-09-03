@@ -13,6 +13,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.core.text.isDigitsOnly
 
 @Composable
 fun NumberInputDialog(
@@ -36,10 +37,12 @@ fun NumberInputDialog(
         OutlinedTextField(
             value = value,
             onValueChange = {
-                value = if(it.text.startsWith("0")) {
-                    it.copy(text = "")
+                if(it.text.startsWith("0")) {
+                    value = TextFieldValue("")
+                } else if(it.text.isDigitsOnly()) {
+                    value = it
                 } else {
-                    it
+                    value = TextFieldValue("")
                 }
 
             },

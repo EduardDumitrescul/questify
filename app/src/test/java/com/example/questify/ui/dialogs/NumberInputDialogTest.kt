@@ -62,4 +62,14 @@ class NumberInputDialogTest {
             .onNodeWithTag(TEXT_FIELD)
             .assertTextEquals("123")
     }
+
+    @Test
+    fun verifyInput_otherCharacters() {
+        composeTestRule
+            .onNodeWithTag(TEXT_FIELD)
+            .performTextInput("11q2w4r67u890d.")
+        composeTestRule
+            .onNodeWithTag(TEXT_FIELD)
+            .assertTextEquals("")
+    }
 }
