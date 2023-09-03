@@ -44,8 +44,6 @@ class TextInputDialogTest {
         composeTestRule
             .onNodeWithTag("Text Field")
             .assertTextEquals("initial value")
-        composeTestRule
-            .onNodeWithTag("Text Field")
             .performTextInput("test input")
         composeTestRule
             .onNodeWithTag("Text Field")
