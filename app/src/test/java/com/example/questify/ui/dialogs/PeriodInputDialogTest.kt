@@ -28,12 +28,17 @@ class PeriodInputDialogTest {
     val composeTestRule = createComposeRule()
 
     private var dismissed = false
+    private var returnValue = -1
 
     @Before
     fun init() {
         composeTestRule.setContent {
             PeriodInputDialog(
-                onDismissRequest = {dismissed = true}
+                onDismissRequest = {dismissed = true},
+                onComplete = {value ->
+                    returnValue = value
+                    dismissed = true
+                }
             )
         }
     }
@@ -88,7 +93,7 @@ class PeriodInputDialogTest {
             .performTextInput("11q2w4r67u890d.")
         composeTestRule
             .onNodeWithTag(NUMBER_FIELD)
-            .assertTextEquals("")
+            .assertTextEquals("0")
     }
 
     @Test
@@ -115,5 +120,28 @@ class PeriodInputDialogTest {
             .onNodeWithText(CANCEL)
             .performClick()
         assertEquals(dismissed, true)
+    }
+
+    @Test
+    fun confirmButton_performClick_verifyReturnValue_noInput() {
+        composeTestRule
+            .onNodeWithText(OK)
+            .performClick()
+        assertEquals(dismissed, false)
+    }
+
+    @Test
+    fun confirmButton_performClick_verifyReturnValue() {
+        composeTestRule
+            .onNodeWithTag(NUMBER_FIELD)
+            .performTextInput("123")
+        composeTestRule
+            .onNodeWithText("weeks")
+            .performClick()
+        composeTestRule
+            .onNodeWithText(OK)
+            .performClick()
+        assertEquals(dismissed, true)
+        assertEquals(returnValue, 123 * 7)
     }
 }

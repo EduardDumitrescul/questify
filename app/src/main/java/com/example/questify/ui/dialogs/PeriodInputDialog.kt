@@ -22,6 +22,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.text.isDigitsOnly
+import java.lang.Exception
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,11 +30,12 @@ import androidx.core.text.isDigitsOnly
 fun PeriodInputDialog(
     modifier: Modifier = Modifier,
     onDismissRequest: () -> Unit = {},
-    initialValue: String = "",
+    onComplete: (Int) -> Unit = {},
+    initialValue: Int = 0,
 ) {
     var value by remember {
         mutableStateOf(
-            TextFieldValue(initialValue)
+            TextFieldValue(initialValue.toString())
         )
     }
     val focusRequester = remember {
@@ -46,7 +48,23 @@ fun PeriodInputDialog(
 
     TwoButtonDialog(
         onDismissRequest = onDismissRequest,
-        onComplete = { },
+        onComplete = {
+            try {
+                val integer = value.text.toInt()
+                if(integer <= 0) {
+                    throw Exception()
+                }
+                if(selected == 1) {
+                    onComplete(value.text.toInt() * 7)
+                }
+                else {
+                    onComplete(value.text.toInt() * 7 )
+                }
+            }
+            catch(exception: Exception) {
+                //
+            }
+        },
         modifier = modifier.testTag("Period Input Dialog")
     ) {
         Column {
