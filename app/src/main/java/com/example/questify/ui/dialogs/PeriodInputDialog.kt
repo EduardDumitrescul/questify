@@ -9,6 +9,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,6 +37,9 @@ fun PeriodInputDialog(
     }
     val focusRequester = remember {
         FocusRequester()
+    }
+    var selected by remember {
+        mutableIntStateOf(0)
     }
     val selectorFields = listOf("days", "weeks")
 
@@ -76,8 +80,8 @@ fun PeriodInputDialog(
             ) {
                 for(i in selectorFields.indices) {
                     FilterChip(
-                        selected = false,
-                        onClick = {  },
+                        selected =  selected == i ,
+                        onClick = { selected = i },
                         label = { Text(selectorFields[i]) },
                     )
                 }

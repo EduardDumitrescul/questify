@@ -1,9 +1,12 @@
 package com.example.questify.ui.dialogs
 
+import androidx.compose.ui.test.assertIsNotSelected
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.*
@@ -82,5 +85,23 @@ class PeriodInputDialogTest {
         composeTestRule
             .onNodeWithTag(NUMBER_FIELD)
             .assertTextEquals("")
+    }
+
+    @Test
+    fun verifySelector_onlyOneValueSelected() {
+        composeTestRule.onNodeWithText("days")
+            .assertIsSelected()
+        composeTestRule
+            .onNodeWithText("weeks")
+            .assertIsNotSelected()
+            .performClick()
+            .assertIsSelected()
+        composeTestRule.onNodeWithText("days")
+            .assertIsNotSelected()
+            .performClick()
+            .assertIsSelected()
+        composeTestRule
+            .onNodeWithText("weeks")
+            .assertIsNotSelected()
     }
 }
