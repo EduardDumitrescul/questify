@@ -16,7 +16,6 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -32,7 +31,13 @@ fun HomepageScreen(
     viewModel: HomepageViewModel = hiltViewModel(),
 ){
     val quests by viewModel.quests.observeAsState()
-    val state = rememberHomepageState(quests = quests)
+
+    val state = HomepageScreenState(
+        quests = quests,
+        addQuest = {
+            viewModel.addQuest(it)
+        },
+    )
 
     HomepageScreenStateless(
         modifier = modifier,
@@ -43,7 +48,7 @@ fun HomepageScreen(
 @Composable
 fun HomepageScreenStateless(
     modifier: Modifier = Modifier,
-    state: HomepageScreenState = HomepageScreenState()
+    state: HomepageScreenState,
 ) {
     Scaffold(
         modifier =  modifier.testTag("Homepage Screen"),
@@ -77,23 +82,19 @@ fun HomepageScreenStateless(
         if(state.showAddQuestBottomSheet) {
             AddQuestBottomSheet(
                 onDismissRequest = state.onBottomSheetDismissRequest,
-                onSave = {}
+                onSave = {
+                    state.addQuest(it)
+                }
 
             )
         }
     }
 }
 
-@Composable
-private fun rememberHomepageState(
-    quests: List<QuestModel>?
-) = remember {
-    HomepageScreenState(quests)
-}
-
 @Stable
 class HomepageScreenState(
     var quests: List<QuestModel>? = listOf(),
+    val addQuest: (QuestModel) -> Unit,
 ) {
     var showAddQuestBottomSheet by mutableStateOf(false)
     var onClickAddQuest: () -> Unit = {
@@ -107,6 +108,9 @@ class HomepageScreenState(
 @Preview(widthDp = 360, heightDp = 640)
 @Composable
 fun HomepageScreenPreview() {
-    val state = HomepageScreenState(quests = mutableListOf(QuestModel(), QuestModel()))
+    val state = HomepageScreenState(
+        quests = mutableListOf(QuestModel(), QuestModel()),
+        addQuest = {}
+    )
     HomepageScreenStateless(state = state)
 }

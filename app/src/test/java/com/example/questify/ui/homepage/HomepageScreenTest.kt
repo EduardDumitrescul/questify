@@ -7,6 +7,7 @@ import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
@@ -84,5 +85,19 @@ class HomepageScreenTest {
         composeTestRule
             .onNodeWithTag("Add Quest Bottom Sheet")
             .assertDoesNotExist()
+    }
+
+    @Test
+    fun bottomSheet_save_verifyQuestAdded() {
+        val initialQuestNumber = dataSource.getNumberOfQuests()
+        composeTestRule
+            .onNodeWithTag("FAB")
+            .performClick()
+        composeTestRule
+            .onNodeWithText("Save")
+            .performClick()
+        composeTestRule
+            .onAllNodesWithTag("Quest Card")
+            .assertCountEquals(initialQuestNumber + 1)
     }
 }

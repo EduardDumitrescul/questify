@@ -109,7 +109,10 @@ fun AddQuestBottomSheetStateless(
                 onClick = state.onDeadlineFieldClick
             )
 
-            Button(onClick = { state.onSave(state.quest) }) {
+            Button(onClick = {
+                state.onSave(state.quest)
+                state.onDismissRequest()
+            }) {
                 Text("Save")
             }
         }
