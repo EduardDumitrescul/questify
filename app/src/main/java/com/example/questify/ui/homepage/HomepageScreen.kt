@@ -76,7 +76,9 @@ fun HomepageScreenStateless(
 
         if(state.showAddQuestBottomSheet) {
             AddQuestBottomSheet(
-                onDismissRequest = state.onBottomSheetDismissRequest
+                onDismissRequest = state.onBottomSheetDismissRequest,
+                onSave = {}
+
             )
         }
     }

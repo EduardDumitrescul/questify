@@ -2,6 +2,7 @@ package com.example.questify.ui.homepage
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -22,9 +23,13 @@ import com.example.questify.ui.dialogs.TextInputDialog
 @Composable
 fun AddQuestBottomSheet(
     onDismissRequest: () -> Unit,
+    onSave: (QuestModel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val state = rememberState(onDismissRequest)
+    val state = rememberState(
+        onDismissRequest = onDismissRequest,
+        onSave = onSave,
+        )
 
     AddQuestBottomSheetStateless(
         state = state,
@@ -103,6 +108,10 @@ fun AddQuestBottomSheetStateless(
                 deadline = state.quest.timeLimit,
                 onClick = state.onDeadlineFieldClick
             )
+
+            Button(onClick = { state.onSave(state.quest) }) {
+                Text("Save")
+            }
         }
     }
 }
@@ -110,16 +119,19 @@ fun AddQuestBottomSheetStateless(
 
 @Composable
 private fun rememberState(
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    onSave: (QuestModel) -> Unit,
 ) = remember {
     AddQuestBottomSheetState(
-        onDismissRequest = onDismissRequest
+        onDismissRequest = onDismissRequest,
+        onSave = onSave
     )
 }
 
 @Stable
 class AddQuestBottomSheetState(
-    val onDismissRequest: () -> Unit
+    val onDismissRequest: () -> Unit,
+    val onSave: (QuestModel) -> Unit,
 ) {
 
     val quest by mutableStateOf(QuestModel())

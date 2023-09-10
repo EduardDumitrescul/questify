@@ -52,10 +52,13 @@ class AddQuestBottomSheetTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    private var saved = false
+
     @Before
     fun init() {
         composeTestRule.setContent {
-            AddQuestBottomSheet(onDismissRequest = { })
+            AddQuestBottomSheet(onDismissRequest = { },
+                onSave = {saved = true})
         }
     }
 
@@ -286,6 +289,15 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag(DEADLINE_FIELD, useUnmergedTree = true)
             .assertTextEquals("700")
 
+    }
+
+    @Test
+    fun saveButton_click() {
+        composeTestRule
+            .onNodeWithText("Save")
+            .performClick()
+
+        assertEquals(saved, true)
     }
 
 }
