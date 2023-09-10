@@ -27,6 +27,8 @@ class QuestDataSourceLocalTest {
 
     @Test
     fun addQuest() {
+        val quests = dataSource.getQuests()
+
         dataSource.addQuest(QuestModel())
         dataSource.addQuest(QuestModel())
         dataSource.addQuest(QuestModel())
@@ -34,6 +36,7 @@ class QuestDataSourceLocalTest {
         val numberOfQuests = dataSource.getNumberOfQuests()
 
         assertEquals(numberOfQuests, 3)
+        assertEquals(numberOfQuests, quests.value?.size)
     }
 
     @Test

@@ -8,14 +8,14 @@ import java.util.UUID
 
 class QuestDataSourceLocal: QuestRepository {
 
-    private val quests: MutableList<QuestModel> = mutableListOf()
+    private var quests: MutableLiveData<List<QuestModel>> = MutableLiveData(listOf())
 
     override fun addQuest(quest: QuestModel) {
-        quests.add(quest)
+        quests.value = quests.value?.plus(quest)
     }
 
     override fun getQuestById(id: UUID): LiveData<QuestModel> {
-        quests.forEach {
+        quests.value?.forEach {
             if (it.id == id) {
                 return MutableLiveData(it)
             }
@@ -24,12 +24,12 @@ class QuestDataSourceLocal: QuestRepository {
     }
 
     override fun getQuests(): LiveData<List<QuestModel>> {
-        return MutableLiveData(quests)
+        return quests
     }
 
     override fun deleteQuest(quest: QuestModel) {
-        quests.remove(quest)
+        quests.value = quests.value?.minus(quest)
     }
 
-    override fun getNumberOfQuests() = quests.size
+    override fun getNumberOfQuests() = quests.value?.size ?: 0
 }
