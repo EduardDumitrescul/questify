@@ -71,7 +71,13 @@ fun AddQuestBottomSheetStateless(
     }
 
     if(state.showPeriodInputDialog) {
-        PeriodInputDialog()
+        PeriodInputDialog(
+            onDismissRequest = state.closePeriodInputDialog,
+            onComplete = {
+                state.savePeriod(it)
+                state.closePeriodInputDialog()
+            }
+        )
     }
 
     ModalBottomSheet(
@@ -153,6 +159,12 @@ class AddQuestBottomSheetState(
     var showPeriodInputDialog by mutableStateOf(false)
     var onDeadlineFieldClick = {
         showPeriodInputDialog = true
+    }
+    var closePeriodInputDialog = {
+        showPeriodInputDialog = false
+    }
+    var savePeriod: (Int) -> Unit = {
+        quest.timeLimit = it
     }
 }
 

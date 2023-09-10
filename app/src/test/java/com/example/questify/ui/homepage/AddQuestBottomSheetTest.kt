@@ -264,5 +264,29 @@ class AddQuestBottomSheetTest {
             .assertExists()
     }
 
+    @Test
+    fun DeadlineField_writeToDialog_save() {
+        composeTestRule
+            .onNodeWithTag(DEADLINE_ROW)
+            .performClick()
+        composeTestRule
+            .onNodeWithTag("Number Field")
+            .performTextInput("100")
+        composeTestRule
+            .onNodeWithText("weeks")
+            .performClick()
+        composeTestRule
+            .onNodeWithText(OK)
+            .performClick()
+
+        composeTestRule
+            .onNodeWithTag(PERIOD_INPUT_DIALOG)
+            .assertDoesNotExist()
+        composeTestRule
+            .onNodeWithTag(DEADLINE_FIELD, useUnmergedTree = true)
+            .assertTextEquals("700")
+
+    }
+
 }
 
