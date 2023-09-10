@@ -28,6 +28,7 @@ import androidx.core.text.isDigitsOnly
 @Composable
 fun PeriodInputDialog(
     modifier: Modifier = Modifier,
+    onDismissRequest: () -> Unit = {},
     initialValue: String = "",
 ) {
     var value by remember {
@@ -44,7 +45,7 @@ fun PeriodInputDialog(
     val selectorFields = listOf("days", "weeks")
 
     TwoButtonDialog(
-        onDismissRequest = {  },
+        onDismissRequest = onDismissRequest,
         onComplete = { },
         modifier = modifier.testTag("Period Input Dialog")
     ) {

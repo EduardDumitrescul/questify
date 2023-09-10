@@ -27,10 +27,14 @@ class PeriodInputDialogTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    private var dismissed = false
+
     @Before
     fun init() {
         composeTestRule.setContent {
-            PeriodInputDialog()
+            PeriodInputDialog(
+                onDismissRequest = {dismissed = true}
+            )
         }
     }
 
@@ -103,5 +107,13 @@ class PeriodInputDialogTest {
         composeTestRule
             .onNodeWithText("weeks")
             .assertIsNotSelected()
+    }
+
+    @Test
+    fun cancelButton_performClick_verifyDismissed() {
+        composeTestRule
+            .onNodeWithText(CANCEL)
+            .performClick()
+        assertEquals(dismissed, true)
     }
 }
