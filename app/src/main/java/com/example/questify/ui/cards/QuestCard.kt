@@ -1,11 +1,10 @@
 package com.example.questify.ui.cards
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -14,7 +13,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun QuestCard(
@@ -33,7 +31,6 @@ fun QuestCard(
     state.onClick = {
         state = state.copy(
             extended = !state.extended,
-            questName = "sad"
         )
     }
 
@@ -63,7 +60,9 @@ fun QuestCardStateless(
                 Column(
                     modifier = Modifier.testTag("body")
                 ) {
-                    Spacer(Modifier.height(20.dp))
+                    TextButton(onClick = {  }) {
+                        Text("edit")
+                    }
                 }
             }
         }
