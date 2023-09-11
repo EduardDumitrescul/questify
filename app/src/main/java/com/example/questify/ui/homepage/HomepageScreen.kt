@@ -24,11 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.questify.QuestModel
 import com.example.questify.ui.cards.QuestCard
+import java.util.UUID
 
 @Composable
 fun HomepageScreen(
     modifier: Modifier = Modifier,
     viewModel: HomepageViewModel = hiltViewModel(),
+    navigateToQuestDetailScreen: (UUID) -> Unit  = {},
 ){
     val quests by viewModel.quests.observeAsState()
 
@@ -37,6 +39,7 @@ fun HomepageScreen(
         addQuest = {
             viewModel.addQuest(it)
         },
+        navigateToQuestDetailScreen = navigateToQuestDetailScreen
     )
 
     HomepageScreenStateless(
@@ -72,7 +75,8 @@ fun HomepageScreenStateless(
             state.quests?.let {
                 items(it) { quest ->
                     QuestCard(
-                        questName = quest.name
+                        quest = quest,
+                        onEditButtonClick = state.navigateToQuestDetailScreen,
                     )
                 }
             }
@@ -95,6 +99,7 @@ fun HomepageScreenStateless(
 class HomepageScreenState(
     var quests: List<QuestModel>? = listOf(),
     val addQuest: (QuestModel) -> Unit,
+    val navigateToQuestDetailScreen: (UUID) -> Unit = {},
 ) {
     var showAddQuestBottomSheet by mutableStateOf(false)
     var onClickAddQuest: () -> Unit = {

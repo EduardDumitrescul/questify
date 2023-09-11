@@ -6,8 +6,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.questify.ui.detail.QuestDetailScreen
 import com.example.questify.ui.homepage.HomepageScreen
 import com.example.questify.ui.homepage.HomepageViewModel
+import java.util.UUID
 
 @Composable
 fun QuestifyNavHost(
@@ -21,7 +23,24 @@ fun QuestifyNavHost(
     ) {
         composable(route = Homepage.route) {
             val viewmodel = hiltViewModel<HomepageViewModel>()
-            HomepageScreen(viewModel = viewmodel)
+            HomepageScreen(
+                navigateToQuestDetailScreen = {
+                    navController.navigateToQuestDetailScreen(it)
+                },
+                viewModel = viewmodel
+            )
+        }
+
+        composable(
+            route = QuestDetail.routeWithArgs,
+            arguments = QuestDetail.arguments
+        ) { navBackStackEntry ->
+            //val questId = navBackStackEntry.arguments?.getString(QuestDetail.questTypeArg)
+            QuestDetailScreen()
         }
     }
+}
+
+private fun NavHostController.navigateToQuestDetailScreen(questId: UUID) {
+    this.navigate("${QuestDetail.route}/$questId")
 }

@@ -14,15 +14,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.questify.QuestModel
+import java.util.UUID
 
 @Composable
 fun QuestCard(
     modifier: Modifier = Modifier,
-    questName: String = "",
+    quest: QuestModel = QuestModel(),
+    onEditButtonClick: (UUID) -> Unit = {},
 ) {
     val state = remember {
         QuestCardState(
-            questName = questName,
+            quest = quest,
+            onEditButtonClick = onEditButtonClick,
         )
     }
 
@@ -48,7 +52,7 @@ fun QuestCardStateless(
     ) {
         Column() {
             Text(
-                text = state.questName,
+                text = state.quest.name,
                 modifier = Modifier.testTag("Quest Name")
             )
 
@@ -56,7 +60,9 @@ fun QuestCardStateless(
                 Column(
                     modifier = Modifier.testTag("body")
                 ) {
-                    TextButton(onClick = {  }) {
+                    TextButton(onClick = {
+                        state.onEditButtonClick(state.quest.id)
+                    }) {
                         Text("edit")
                     }
                 }
@@ -67,7 +73,8 @@ fun QuestCardStateless(
 
 @Stable
 class QuestCardState(
-    var questName: String = "",
+    var quest: QuestModel = QuestModel(),
+    val onEditButtonClick: (UUID) -> Unit = {},
 ) {
     var extended by mutableStateOf(false)
     var onClick: () -> Unit = {}
@@ -76,5 +83,5 @@ class QuestCardState(
 @Preview(showBackground = true)
 @Composable
 fun QuestCardPreview() {
-    QuestCard(questName = "Quest Name")
+    QuestCard(quest = QuestModel(name = "Quest Name"))
 }

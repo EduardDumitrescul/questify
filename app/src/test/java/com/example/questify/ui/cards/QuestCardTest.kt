@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.printToString
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.questify.QuestModel
 import com.example.questify.ui.theme.QuestifyTheme
 import org.junit.Before
 import org.junit.Rule
@@ -26,7 +27,7 @@ class QuestCardTest {
     fun initQuestCard() {
         composeTestRule.setContent {
             QuestifyTheme {
-                QuestCard(questName = "Quest Name")
+                QuestCard(quest = QuestModel(name = "Quest Name"))
             }
         }
     }
