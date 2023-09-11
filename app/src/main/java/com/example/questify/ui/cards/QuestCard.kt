@@ -6,6 +6,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,19 +20,14 @@ fun QuestCard(
     modifier: Modifier = Modifier,
     questName: String = "",
 ) {
-    var state by remember {
-        mutableStateOf(
-            QuestCardState(
-                questName = questName,
-                extended = false,
-            )
+    val state = remember {
+        QuestCardState(
+            questName = questName,
         )
     }
 
     state.onClick = {
-        state = state.copy(
-            extended = !state.extended,
-        )
+        state.extended = !state.extended
     }
 
     QuestCardStateless(
@@ -69,11 +65,13 @@ fun QuestCardStateless(
     }
 }
 
-data class QuestCardState(
+@Stable
+class QuestCardState(
     var questName: String = "",
-    var extended: Boolean = false,
+) {
+    var extended by mutableStateOf(false)
     var onClick: () -> Unit = {}
-)
+ }
 
 @Preview(showBackground = true)
 @Composable
