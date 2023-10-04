@@ -10,6 +10,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import com.example.questify.QuestModel
+import com.example.questify.ui.FieldRow
 
 @Composable
 fun QuestDetailScreen(
@@ -44,6 +45,27 @@ fun StatelessQuestDetailScreen(
         ) {
             Text(text = "Perform Quest")
         }
+
+        Text(text = state.quest.description)
+
+        FieldRow(
+            contentBegin = {
+                Text(text = "Start Date")
+            },
+            contentEnd = {
+                Text(text = state.quest.getStartDateString())
+            }
+        )
+
+        FieldRow(
+            contentBegin = {
+                Text(text = "End Date")
+            },
+            contentEnd = {
+                Text(text = state.quest.getEndDateString())
+            }
+        )
+
     }
 }
 

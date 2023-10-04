@@ -17,4 +17,19 @@ data class QuestModel (
     fun performRep() {
         currentReps += 1
     }
+
+    fun getStartDateString(): String = startDate.toString()
+
+    fun getEndDateString(): String = endDate.toString()
+
+
+}
+private fun LocalDate?.toString(): String {
+    if(this == null) {
+        return "not set"
+    }
+    else {
+        return this.toString()
+    }
+
 }
