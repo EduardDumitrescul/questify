@@ -76,7 +76,7 @@ fun HomepageScreenStateless(
                 items(it) { quest ->
                     QuestCard(
                         quest = quest,
-                        onEditButtonClick = state.navigateToQuestDetailScreen,
+                        onClick = state.navigateToQuestDetailScreen,
                     )
                 }
             }

@@ -4,13 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,17 +17,13 @@ import java.util.UUID
 fun QuestCard(
     modifier: Modifier = Modifier,
     quest: QuestModel = QuestModel(),
-    onEditButtonClick: (UUID) -> Unit = {},
+    onClick: (UUID) -> Unit = {},
 ) {
     val state = remember {
         QuestCardState(
             quest = quest,
-            onEditButtonClick = onEditButtonClick,
+            onClick = onClick,
         )
-    }
-
-    state.onClick = {
-        state.extended = !state.extended
     }
 
     QuestCardStateless(
@@ -48,25 +40,15 @@ fun QuestCardStateless(
 ) {
     ElevatedCard(
         modifier = modifier.testTag("Quest Card"),
-        onClick = state.onClick,
+        onClick = {
+            state.onClick(state.quest.id)
+        },
     ) {
         Column() {
             Text(
                 text = state.quest.name,
                 modifier = Modifier.testTag("Quest Name")
             )
-
-            if(state.extended == true) {
-                Column(
-                    modifier = Modifier.testTag("body")
-                ) {
-                    TextButton(onClick = {
-                        state.onEditButtonClick(state.quest.id)
-                    }) {
-                        Text("edit")
-                    }
-                }
-            }
         }
     }
 }
@@ -74,10 +56,8 @@ fun QuestCardStateless(
 @Stable
 class QuestCardState(
     var quest: QuestModel = QuestModel(),
-    val onEditButtonClick: (UUID) -> Unit = {},
+    val onClick: (UUID) -> Unit = {},
 ) {
-    var extended by mutableStateOf(false)
-    var onClick: () -> Unit = {}
  }
 
 @Preview(showBackground = true)

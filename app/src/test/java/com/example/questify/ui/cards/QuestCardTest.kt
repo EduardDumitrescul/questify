@@ -3,10 +3,6 @@ package com.example.questify.ui.cards
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onRoot
-import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.printToString
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.questify.QuestModel
 import com.example.questify.ui.theme.QuestifyTheme
@@ -38,26 +34,5 @@ class QuestCardTest {
         composeTestRule
             .onNodeWithTag(testTag = "Quest Name", useUnmergedTree = true)
             .assertTextEquals("Quest Name")
-    }
-
-    @Test
-    fun performClick_verifyExtended() {
-        composeTestRule
-            .onNodeWithTag("Quest Card", useUnmergedTree = true)
-            .performClick()
-        println(composeTestRule.onRoot(useUnmergedTree = true).printToString())
-        composeTestRule
-            .onNodeWithTag("body", useUnmergedTree = true)
-            .assertExists()
-    }
-
-    @Test
-    fun extended_editButton() {
-        val card = composeTestRule.onNodeWithTag("Quest Card")
-        val editButton = composeTestRule.onNodeWithText("edit")
-
-        editButton.assertDoesNotExist()
-        card.performClick()
-        editButton.assertExists()
     }
 }
