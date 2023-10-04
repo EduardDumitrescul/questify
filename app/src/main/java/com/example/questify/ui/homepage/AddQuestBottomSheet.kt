@@ -104,9 +104,9 @@ fun AddQuestBottomSheetStateless(
                 target = state.quest.targetReps,
                 onClick = state.onTargetFieldClick,
             )
-            DeadlineFieldRow(
-                deadline = state.quest.timeLimit,
-                onClick = state.onDeadlineFieldClick
+            TimeLimitFieldRow(
+                timeLimit = state.quest.timeLimit,
+                onClick = state.onTimeLimitFieldClick
             )
 
             Button(onClick = {
@@ -172,7 +172,7 @@ class AddQuestBottomSheetState(
     }
 
     var showPeriodInputDialog by mutableStateOf(false)
-    var onDeadlineFieldClick = {
+    var onTimeLimitFieldClick = {
         showPeriodInputDialog = true
     }
     var closePeriodInputDialog = {
@@ -247,22 +247,22 @@ fun TargetFieldRow(
 }
 
 @Composable
-fun DeadlineFieldRow(
-    deadline: Int?,
+fun TimeLimitFieldRow(
+    timeLimit: Int?,
     onClick: () -> Unit = {}
 ) {
     FieldRow(
         contentBegin = {
-            Text(text = "Deadline")
+            Text(text = "Time Limit")
         },
         contentEnd = {
             Text(
-                text = deadline.toString(),
-                modifier = Modifier.testTag("Deadline Field")
+                text = timeLimit.toString(),
+                modifier = Modifier.testTag("Time Limit Field")
             )
         },
         modifier = Modifier
-            .testTag("Deadline Row")
+            .testTag("Time Limit Row")
             .clickable { onClick() }
     )
 }

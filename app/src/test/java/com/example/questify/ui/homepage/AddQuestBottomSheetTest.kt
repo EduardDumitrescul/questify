@@ -40,9 +40,9 @@ private const val TARGET = "Target"
 private const val TARGET_ROW = "Target Field Row"
 private const val TARGET_FIELD = "Target Field"
 
-private const val DEADLINE = "Deadline"
-private const val DEADLINE_FIELD = "Deadline Field"
-private const val DEADLINE_ROW = "Deadline Row"
+private const val TIME_LIMIT = "Time Limit"
+private const val TIME_LIMIT_FIELD = "Time Limit Field"
+private const val TIME_LIMIT_ROW = "Time Limit Row"
 
 
 
@@ -81,7 +81,7 @@ class AddQuestBottomSheetTest {
             .onNodeWithText(TARGET)
             .assertIsDisplayed()
         composeTestRule
-            .onNodeWithText(DEADLINE)
+            .onNodeWithText(TIME_LIMIT)
             .assertIsDisplayed()
     }
 
@@ -99,7 +99,7 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag(TARGET_FIELD, useUnmergedTree = true)
             .assertTextEquals(quest.targetReps.toString())
         composeTestRule
-            .onNodeWithTag(DEADLINE_FIELD, useUnmergedTree = true)
+            .onNodeWithTag(TIME_LIMIT_FIELD, useUnmergedTree = true)
             .assertTextEquals(quest.timeLimit.toString())
     }
 
@@ -260,7 +260,7 @@ class AddQuestBottomSheetTest {
     @Test
     fun DeadlineField_performClick_openDialog() {
         composeTestRule
-            .onNodeWithTag(DEADLINE_ROW)
+            .onNodeWithTag(TIME_LIMIT_ROW)
             .performClick()
         composeTestRule
             .onNodeWithTag(PERIOD_INPUT_DIALOG)
@@ -270,7 +270,7 @@ class AddQuestBottomSheetTest {
     @Test
     fun DeadlineField_writeToDialog_save() {
         composeTestRule
-            .onNodeWithTag(DEADLINE_ROW)
+            .onNodeWithTag(TIME_LIMIT_ROW)
             .performClick()
         composeTestRule
             .onNodeWithTag("Number Field")
@@ -286,7 +286,7 @@ class AddQuestBottomSheetTest {
             .onNodeWithTag(PERIOD_INPUT_DIALOG)
             .assertDoesNotExist()
         composeTestRule
-            .onNodeWithTag(DEADLINE_FIELD, useUnmergedTree = true)
+            .onNodeWithTag(TIME_LIMIT_FIELD, useUnmergedTree = true)
             .assertTextEquals("700")
 
     }
