@@ -54,8 +54,8 @@ fun PeriodInputDialog(
                 if(integer <= 0) {
                     throw Exception()
                 }
-                if(selected == 1) {
-                    onComplete(value.text.toInt() * 7)
+                if(selected == 0) {
+                    onComplete(value.text.toInt())
                 }
                 else {
                     onComplete(value.text.toInt() * 7 )
