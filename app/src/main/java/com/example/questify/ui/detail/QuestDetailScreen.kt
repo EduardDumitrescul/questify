@@ -59,10 +59,10 @@ fun StatelessQuestDetailScreen(
 
         FieldRow(
             contentBegin = {
-                Text(text = "End Date")
+                Text(text = "Remaining Time")
             },
             contentEnd = {
-                Text(text = state.quest.getEndDateString())
+                Text(text = state.quest.getTimeRemainingString())
             }
         )
 
