@@ -19,6 +19,7 @@ import com.example.questify.ui.FieldRow
 import com.example.questify.ui.dialogs.NumberInputDialog
 import com.example.questify.ui.dialogs.PeriodInputDialog
 import com.example.questify.ui.dialogs.TextInputDialog
+import com.example.questify.util.formatToWeeksAndDays
 
 @Composable
 fun AddQuestBottomSheet(
@@ -257,7 +258,7 @@ fun TimeLimitFieldRow(
         },
         contentEnd = {
             Text(
-                text = timeLimit.toString(),
+                text = formatToWeeksAndDays(timeLimit),
                 modifier = Modifier.testTag("Time Limit Field")
             )
         },
