@@ -14,5 +14,7 @@ data class QuestModel (
     var targetReps: Int = 20,
     var currentReps: Int = 0
 ) {
-
+    fun performRep() {
+        currentReps += 1
+    }
 }

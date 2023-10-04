@@ -49,6 +49,9 @@ fun QuestCardStateless(
                 text = state.quest.name,
                 modifier = Modifier.testTag("Quest Name")
             )
+            Text(
+                text = state.quest.currentReps.toString()
+            )
         }
     }
 }

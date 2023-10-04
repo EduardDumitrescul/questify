@@ -2,6 +2,7 @@ package com.example.questify.ui.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -20,6 +21,7 @@ fun QuestDetailScreen(
     quest?.let {
         val state = QuestDetailState(
             quest = it,
+            onPerformClick = { viewModel.performRep() },
         )
         StatelessQuestDetailScreen(
             state = state,
@@ -37,6 +39,11 @@ fun StatelessQuestDetailScreen(
         modifier = modifier.testTag("Quest Detail Screen")
     ) {
         Text(text = state.quest.name)
+        TextButton(
+            onClick = state.onPerformClick
+        ) {
+            Text(text = "Perform Quest")
+        }
     }
 }
 
@@ -44,4 +51,5 @@ fun StatelessQuestDetailScreen(
 @Stable
 class QuestDetailState(
     val quest: QuestModel,
+    val onPerformClick: () -> Unit,
 )

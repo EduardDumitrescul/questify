@@ -15,4 +15,8 @@ class QuestDetailViewModel
     state: SavedStateHandle
 ): ViewModel(){
     val quest = dataSource.getQuestById(UUID.fromString(state[QuestDetail.questIdArg]))
+
+    fun performRep() {
+        quest.value?.performRep()
+    }
 }
