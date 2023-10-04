@@ -1,6 +1,12 @@
 package com.example.questify.util
 
-fun formatToWeeksAndDays(days: Long): String {
+
+fun formatToWeeksAndDays(days: Int?) = formatToWeeksAndDays(days?.toLong())
+fun formatToWeeksAndDays(days: Long?): String {
+    if(days == null) {
+        return "no limit set"
+    }
+
     val weeks = days / 7
     val daysReduced = days % 7
 

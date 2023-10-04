@@ -26,11 +26,7 @@ data class QuestModel (
         val currentDate = LocalDate.now()
         val days =  ChronoUnit.DAYS.between(currentDate, startDate)
 
-        if(timeLimit == null) {
-            return "no limit set"
-        }
-
-        val remainingTime = timeLimit!! - days
+        val remainingTime = timeLimit?.minus(days)
 
         return formatToWeeksAndDays(remainingTime)
     }
