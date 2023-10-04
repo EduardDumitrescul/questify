@@ -14,11 +14,11 @@ object Homepage: QuestifyDestination {
 
 object QuestDetail: QuestifyDestination {
     override val route = "quest_detail_screen"
-    const val questTypeArg = "quest_id"
+    const val questIdArg = "quest_id"
 
-    val routeWithArgs = "$route/{$questTypeArg}"
+    val routeWithArgs = "$route/{$questIdArg}"
 
     val arguments = listOf(
-        navArgument(questTypeArg) { type = NavType.StringType}
+        navArgument(questIdArg) { type = NavType.StringType}
     )
 }

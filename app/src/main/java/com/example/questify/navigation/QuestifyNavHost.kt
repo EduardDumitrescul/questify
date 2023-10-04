@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.questify.ui.detail.QuestDetailScreen
+import com.example.questify.ui.detail.QuestDetailViewModel
 import com.example.questify.ui.homepage.HomepageScreen
 import com.example.questify.ui.homepage.HomepageViewModel
 import java.util.UUID
@@ -36,7 +37,8 @@ fun QuestifyNavHost(
             arguments = QuestDetail.arguments
         ) { navBackStackEntry ->
             //val questId = navBackStackEntry.arguments?.getString(QuestDetail.questTypeArg)
-            QuestDetailScreen()
+            val viewModel: QuestDetailViewModel = hiltViewModel()
+            QuestDetailScreen(viewModel = viewModel)
         }
     }
 }
