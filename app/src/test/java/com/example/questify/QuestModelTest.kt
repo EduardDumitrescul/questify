@@ -1,6 +1,7 @@
 package com.example.questify
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.questify.data.models.QuestModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -40,7 +41,6 @@ class QuestModelTest {
         quest.timeLimit = 100
         quest.endDate = LocalDate.MAX
         quest.targetReps = 100
-        quest.currentReps = 100
 
         assertEquals(quest.name, "new name")
         assertEquals(quest.description, "description")

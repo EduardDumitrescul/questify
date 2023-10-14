@@ -1,7 +1,7 @@
 package com.example.questify.ui.homepage
 
 import androidx.lifecycle.ViewModel
-import com.example.questify.QuestModel
+import com.example.questify.data.models.QuestModel
 import com.example.questify.data.QuestRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

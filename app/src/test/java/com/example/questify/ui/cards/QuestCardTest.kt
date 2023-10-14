@@ -4,7 +4,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.questify.QuestModel
+import com.example.questify.data.models.QuestModel
 import com.example.questify.ui.theme.QuestifyTheme
 import org.junit.Before
 import org.junit.Rule

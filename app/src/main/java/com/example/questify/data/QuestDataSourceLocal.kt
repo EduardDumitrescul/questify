@@ -2,7 +2,8 @@ package com.example.questify.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.questify.QuestModel
+import com.example.questify.data.models.EntryModel
+import com.example.questify.data.models.QuestModel
 import java.lang.IllegalArgumentException
 import java.util.UUID
 
@@ -12,6 +13,10 @@ class QuestDataSourceLocal: QuestRepository {
 
     override fun addQuest(quest: QuestModel) {
         quests.value = quests.value?.plus(quest)
+    }
+
+    override fun addEntry(questId: UUID, entry: EntryModel) {
+        // TODO
     }
 
     override fun getQuestById(id: UUID): LiveData<QuestModel> {

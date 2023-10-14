@@ -9,7 +9,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.printToString
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.questify.QuestModel
+import com.example.questify.data.models.QuestModel
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule

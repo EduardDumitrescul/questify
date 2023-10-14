@@ -2,7 +2,7 @@ package com.example.questify.ui.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.example.questify.EntryModel
+import com.example.questify.data.models.EntryModel
 import com.example.questify.data.QuestRepository
 import com.example.questify.navigation.QuestDetail
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,12 +12,17 @@ import javax.inject.Inject
 @HiltViewModel
 class QuestDetailViewModel
 @Inject constructor(
-    dataSource: QuestRepository,
+    val dataSource: QuestRepository,
     state: SavedStateHandle
 ): ViewModel(){
     val quest = dataSource.getQuestById(UUID.fromString(state[QuestDetail.questIdArg]))
 
     fun performRep() {
-        quest.value?.addEntry(EntryModel())
+        quest.value?.id?.let {
+            dataSource.addEntry(
+                questId = it,
+                EntryModel()
+            )
+        }
     }
 }

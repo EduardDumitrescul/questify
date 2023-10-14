@@ -14,7 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import com.example.questify.QuestModel
+import com.example.questify.data.models.QuestModel
 import com.example.questify.ui.FieldRow
 import com.example.questify.ui.dialogs.NumberInputDialog
 import com.example.questify.ui.dialogs.PeriodInputDialog

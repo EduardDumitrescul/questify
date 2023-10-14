@@ -60,17 +60,17 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation("androidx.activity:activity-compose:1.8.0")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation ("androidx.compose.runtime:runtime-livedata")
-    implementation("androidx.compose.material3:material3-android:1.2.0-alpha06")
-    implementation("androidx.navigation:navigation-testing:2.7.1")
+    implementation("androidx.compose.material3:material3-android:1.2.0-alpha09")
+    implementation("androidx.navigation:navigation-testing:2.7.4")
     implementation("androidx.test:runner:1.5.2")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.robolectric:robolectric:4.9")
@@ -88,11 +88,21 @@ dependencies {
     //hilt
     implementation ("com.google.dagger:hilt-android:2.46.1")
     kapt ("com.google.dagger:hilt-android-compiler:2.46.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-beta01")
     testImplementation("com.google.dagger:hilt-android-testing:2.46.1")
     kaptTest("com.google.dagger:hilt-android-compiler:2.46.1")
 
-    val nav_version = "2.7.1"
+    val nav_version = "2.7.4"
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
+
+
+    val room_version = "2.5.2"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:$room_version")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
 }

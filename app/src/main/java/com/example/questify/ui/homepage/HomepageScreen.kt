@@ -23,7 +23,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.questify.QuestModel
+import com.example.questify.data.models.QuestModel
 import com.example.questify.ui.cards.QuestCard
 import java.util.UUID
 

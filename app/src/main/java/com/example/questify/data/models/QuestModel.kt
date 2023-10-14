@@ -1,4 +1,4 @@
-package com.example.questify
+package com.example.questify.data.models
 
 import com.example.questify.util.formatToWeeksAndDays
 import java.time.LocalDate
@@ -64,6 +64,8 @@ data class QuestModel (
         val daysPassed = max(getTimePassed(), 1)
         val completionSpeed = 1.0 * currentReps / daysPassed
         val daysToComplete = (targetReps / completionSpeed).toLong()
+
+
 
         return daysToComplete
     }

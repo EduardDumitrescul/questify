@@ -2,7 +2,7 @@ package com.example.questify.data
 
 import androidx.lifecycle.LiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.questify.QuestModel
+import com.example.questify.data.models.QuestModel
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith

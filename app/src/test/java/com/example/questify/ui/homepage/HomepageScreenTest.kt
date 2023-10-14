@@ -12,7 +12,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.questify.QuestModel
+import com.example.questify.data.models.QuestModel
 import com.example.questify.data.QuestDataSourceLocal
 import com.example.questify.ui.theme.QuestifyTheme
 import org.junit.Before
