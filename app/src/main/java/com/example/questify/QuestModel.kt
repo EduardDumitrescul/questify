@@ -82,7 +82,10 @@ data class QuestModel (
             i ++
         }
 
-        val days = ChronoUnit.DAYS.between(dates[i], LocalDate.now())
+        var days = ChronoUnit.DAYS.between(dates[i], LocalDate.now())
+        if(ChronoUnit.DAYS.between(dates[0], LocalDate.now()) == 0L) {
+            days ++
+        }
         return days
 
     }
