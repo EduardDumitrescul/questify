@@ -1,5 +1,6 @@
 package com.example.questify.ui.homepage
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -77,6 +78,9 @@ fun HomepageScreenStateless(
                     QuestCard(
                         quest = quest,
                         onClick = state.navigateToQuestDetailScreen,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 4.dp)
                     )
                 }
             }
