@@ -14,11 +14,13 @@ data class QuestModel (
     var timeLimit: Int? = null,
     var endDate: LocalDate? = null,
     var targetReps: Int = 20,
-    var currentReps: Int = 0
+    var entryList: MutableList<EntryModel> = mutableListOf(),
 ) {
-    fun performRep() {
-        currentReps += 1
+    fun addEntry(entry: EntryModel) {
+        entryList.add(entry)
     }
+
+    val currentReps:Int get() { return entryList.size}
 
     fun getStartDateString(): String = startDate.toString()
 
@@ -30,6 +32,4 @@ data class QuestModel (
 
         return formatToWeeksAndDays(remainingTime)
     }
-
-
 }
