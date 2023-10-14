@@ -4,6 +4,7 @@ import com.example.questify.util.formatToWeeksAndDays
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import java.util.UUID
+import kotlin.math.max
 
 
 data class QuestModel (
@@ -25,11 +26,53 @@ data class QuestModel (
     fun getStartDateString(): String = startDate.toString()
 
     fun getTimeRemainingString(): String {
-        val currentDate = LocalDate.now()
-        val days =  ChronoUnit.DAYS.between(currentDate, startDate)
-
-        val remainingTime = timeLimit?.minus(days)
+        val remainingTime = getTimeRemaining()
 
         return formatToWeeksAndDays(remainingTime)
     }
+
+    private fun getTimePassed(): Long {
+        val currentDate = LocalDate.now()
+        return ChronoUnit.DAYS.between(currentDate, startDate)
+    }
+
+    private fun getTimeRemaining(): Long? {
+        return timeLimit?.minus(getTimePassed())
+    }
+
+    fun getPredictedStatus(): Status {
+        if(timeLimit == null) {
+            return Status.NO_LIMIT
+        }
+        if(currentReps == 0 && getTimePassed() >= timeLimit!! / targetReps) {
+            return Status.BEHIND
+        }
+        if(currentReps == 0) {
+            return Status.ON_TARGET
+        }
+
+        val daysToComplete = predictDaysToComplete()
+
+        return when {
+            timeLimit!! / daysToComplete > Status.AHEAD.threshold -> Status.AHEAD
+            timeLimit!! / daysToComplete > Status.ON_TARGET.threshold -> Status.ON_TARGET
+            else -> Status.BEHIND
+        }
+    }
+
+    private fun predictDaysToComplete(): Long {
+        val daysPassed = max(getTimePassed(), 1)
+        val completionSpeed = 1.0 * currentReps / daysPassed
+        val daysToComplete = (targetReps / completionSpeed).toLong()
+
+        return daysToComplete
+    }
+
+}
+
+enum class Status(val text: String, val threshold: Double) {
+    NO_LIMIT("no limit set", 0.0),
+    AHEAD("ahead", 1.2),
+    ON_TARGET("on target", 0.8),
+    BEHIND("behind", 0.0)
 }

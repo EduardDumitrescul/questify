@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questify.QuestModel
+import com.example.questify.Status
 import java.util.UUID
 
 @Composable
@@ -54,7 +55,12 @@ fun QuestCardStateless(
                 text = state.quest.name,
                 modifier = Modifier.testTag("Quest Name")
             )
-            GreenStatusToken()
+            when(state.quest.getPredictedStatus()) {
+                Status.NO_LIMIT -> GreyStatusToken()
+                Status.AHEAD -> GreenStatusToken()
+                Status.BEHIND -> RedStatusToken()
+                else -> YellowStatusToken()
+            }
         }
     }
 }
@@ -74,20 +80,26 @@ fun QuestCardPreview() {
 
 @Preview(showBackground = true)
 @Composable
+fun GreyStatusToken() {
+    StatusToken(color = Color.Gray, text = Status.NO_LIMIT.text)
+}
+
+@Preview(showBackground = true)
+@Composable
 fun GreenStatusToken() {
-    StatusToken(color = Color.Green, text = "ahead of target")
+    StatusToken(color = Color.Green, text = Status.AHEAD.text)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun YellowStatusToken() {
-    StatusToken(color = Color.Yellow, text = "on target")
+    StatusToken(color = Color.Yellow, Status.ON_TARGET.text)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun RedStatusToken() {
-    StatusToken(color = Color.Red, text = "behind target")
+    StatusToken(color = Color.Red, text = Status.BEHIND.text)
 }
 
 @Composable
