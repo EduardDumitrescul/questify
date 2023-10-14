@@ -1,15 +1,20 @@
 package com.example.questify.ui.cards
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.questify.QuestModel
 import java.util.UUID
 
@@ -44,14 +49,12 @@ fun QuestCardStateless(
             state.onClick(state.quest.id)
         },
     ) {
-        Column() {
+        Column {
             Text(
                 text = state.quest.name,
                 modifier = Modifier.testTag("Quest Name")
             )
-            Text(
-                text = state.quest.currentReps.toString()
-            )
+            GreenStatusToken()
         }
     }
 }
@@ -67,4 +70,38 @@ class QuestCardState(
 @Composable
 fun QuestCardPreview() {
     QuestCard(quest = QuestModel(name = "Quest Name"))
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreenStatusToken() {
+    StatusToken(color = Color.Green, text = "ahead of target")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun YellowStatusToken() {
+    StatusToken(color = Color.Yellow, text = "on target")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RedStatusToken() {
+    StatusToken(color = Color.Red, text = "behind target")
+}
+
+@Composable
+fun StatusToken(
+    color: Color,
+    text: String,
+) {
+    Text(
+        text = text,
+        modifier = Modifier
+            .background(
+                color = color,
+                shape = MaterialTheme.shapes.extraSmall
+            )
+            .padding(horizontal = 8.dp)
+    )
 }
