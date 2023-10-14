@@ -1,8 +1,12 @@
 package com.example.questify.ui.cards
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -13,9 +17,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questify.QuestModel
+import com.example.questify.R
 import com.example.questify.Status
 import java.util.UUID
 
@@ -50,18 +56,35 @@ fun QuestCardStateless(
             state.onClick(state.quest.id)
         },
     ) {
-        Column {
-            Text(
-                text = state.quest.name,
-                modifier = Modifier.testTag("Quest Name")
-            )
-            when(state.quest.getPredictedStatus()) {
-                Status.NO_LIMIT -> GreyStatusToken()
-                Status.AHEAD -> GreenStatusToken()
-                Status.BEHIND -> RedStatusToken()
-                else -> YellowStatusToken()
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column {
+                Text(
+                    text = state.quest.name,
+                    modifier = Modifier.testTag("Quest Name")
+                )
+                when(state.quest.getPredictedStatus()) {
+                    Status.NO_LIMIT -> GreyStatusToken()
+                    Status.AHEAD -> GreenStatusToken()
+                    Status.BEHIND -> RedStatusToken()
+                    else -> YellowStatusToken()
+                }
             }
+
+            if(state.quest.getStreak() >= 2) {
+                Row() {
+                    Text(text = state.quest.getStreak().toString())
+                    Image(
+                        painterResource(id = R.drawable.fire),
+                        contentDescription = "streak",
+                        modifier = Modifier.size(16.dp))
+                }
+            }
+
+
         }
+
     }
 }
 

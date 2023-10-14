@@ -68,6 +68,25 @@ data class QuestModel (
         return daysToComplete
     }
 
+    fun getStreak(): Long {
+        val dates = (entryList.map { it.date }).reversed()
+        if(dates.isEmpty() || ChronoUnit.DAYS.between(dates[0], LocalDate.now()) > 1) {
+            return 0
+        }
+        var i = 0
+        while(i < dates.size-1) {
+            val daysBetween = ChronoUnit.DAYS.between(dates[i+1], dates[i])
+            if(daysBetween > 1) {
+                break
+            }
+            i ++
+        }
+
+        val days = ChronoUnit.DAYS.between(dates[i], LocalDate.now())
+        return days
+
+    }
+
 }
 
 enum class Status(val text: String, val threshold: Double) {
