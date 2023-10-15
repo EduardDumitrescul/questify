@@ -28,10 +28,9 @@ fun QuestCreateScreen(
     viewModel: QuestCreateViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val screenList = ScreenFactory().getSequence(
+    val screenList = ScreenFactory(viewModel).getSequence(
         listOf(
             ScreenFactory.SCREENS.NAME_INPUT,
-            ScreenFactory.SCREENS.DESCRIPTION_INPUT,
             ScreenFactory.SCREENS.TARGET_INPUT,
             ScreenFactory.SCREENS.TIMELIMIT_INPUT
         )

@@ -5,6 +5,7 @@ import com.example.questify.data.QuestRepository
 import com.example.questify.data.models.QuestModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -12,14 +13,24 @@ class QuestCreateViewModel @Inject constructor(
     val dataSource: QuestRepository,
 ): ViewModel() {
     var screenIndex = MutableStateFlow(0)
-    private var quest = MutableStateFlow(QuestModel())
+        private set
+    var quest = MutableStateFlow(QuestModel())
+        private set
 
     fun setName(name: String) {
-        quest.value.name = name
+        quest.update {
+            quest.value.copy(
+                name = name
+            )
+        }
     }
 
     fun setDescription(description: String) {
-        quest.value.description = description
+        quest.update {
+            quest.value.copy(
+                description = description
+            )
+        }
     }
 
     fun setTarget(target: Int) {
