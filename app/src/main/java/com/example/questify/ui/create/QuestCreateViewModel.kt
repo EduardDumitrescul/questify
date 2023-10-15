@@ -34,11 +34,19 @@ class QuestCreateViewModel @Inject constructor(
     }
 
     fun setTarget(target: Int) {
-        quest.value.targetReps = target
+        quest.update {
+            quest.value.copy(
+                targetReps = target
+            )
+        }
     }
 
-    fun setTimeLimit(days: Int) {
-        quest.value.timeLimit = days
+    fun setTimeLimit(days: Int?) {
+        quest.update {
+            quest.value.copy(
+                timeLimit = days
+            )
+        }
     }
 
     fun save() {
