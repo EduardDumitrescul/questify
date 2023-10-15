@@ -12,6 +12,10 @@ object Homepage: QuestifyDestination {
     override val route = "homepage"
 }
 
+object QuestCreate: QuestifyDestination {
+    override val route = "quest_create"
+}
+
 object QuestDetail: QuestifyDestination {
     override val route = "quest_detail_screen"
     const val questIdArg = "quest_id"

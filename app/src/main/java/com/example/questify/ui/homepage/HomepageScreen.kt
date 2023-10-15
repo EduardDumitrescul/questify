@@ -16,8 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,7 +29,8 @@ import java.util.UUID
 fun HomepageScreen(
     modifier: Modifier = Modifier,
     viewModel: HomepageViewModel = hiltViewModel(),
-    navigateToQuestDetailScreen: (UUID) -> Unit  = {},
+    navigateToQuestDetailScreen: (UUID) -> Unit,
+    navigateToQuestCreateScreen: () -> Unit,
 ){
     val quests by viewModel.quests.observeAsState()
 
@@ -40,7 +39,8 @@ fun HomepageScreen(
         addQuest = {
             viewModel.addQuest(it)
         },
-        navigateToQuestDetailScreen = navigateToQuestDetailScreen
+        navigateToQuestDetailScreen = navigateToQuestDetailScreen,
+        onClickAddQuest = navigateToQuestCreateScreen
     )
 
     HomepageScreenStateless(
@@ -87,15 +87,15 @@ fun HomepageScreenStateless(
 
         }
 
-        if(state.showAddQuestBottomSheet) {
-            AddQuestBottomSheet(
-                onDismissRequest = state.onBottomSheetDismissRequest,
-                onSave = {
-                    state.addQuest(it)
-                }
-
-            )
-        }
+//        if(state.showAddQuestBottomSheet) {
+//            AddQuestBottomSheet(
+//                onDismissRequest = state.onBottomSheetDismissRequest,
+//                onSave = {
+//                    state.addQuest(it)
+//                }
+//
+//            )
+//        }
     }
 }
 
@@ -104,14 +104,9 @@ class HomepageScreenState(
     var quests: List<QuestModel>? = listOf(),
     val addQuest: (QuestModel) -> Unit,
     val navigateToQuestDetailScreen: (UUID) -> Unit = {},
+    var onClickAddQuest: () -> Unit = {},
 ) {
-    var showAddQuestBottomSheet by mutableStateOf(false)
-    var onClickAddQuest: () -> Unit = {
-        showAddQuestBottomSheet = true
-    }
-    var onBottomSheetDismissRequest: () -> Unit = {
-        showAddQuestBottomSheet = false
-    }
+
 }
 
 @Preview(widthDp = 360, heightDp = 640)
