@@ -51,7 +51,8 @@ fun QuestifyNavHost(
         ) {
             val viewModel = hiltViewModel<QuestCreateViewModel>()
             QuestCreateScreen(
-                viewModel = viewModel
+                viewModel = viewModel,
+                navigateUp = { navController.navigateUp() }
             )
         }
     }

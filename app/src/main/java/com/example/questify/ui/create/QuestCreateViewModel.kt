@@ -50,7 +50,7 @@ class QuestCreateViewModel @Inject constructor(
     }
 
     fun save() {
-        // TODO()
+        dataSource.addQuest(quest.value)
     }
     fun next() {
         screenIndex.value ++

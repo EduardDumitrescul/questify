@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 fun QuestCreateScreen(
     viewModel: QuestCreateViewModel,
     modifier: Modifier = Modifier,
+    navigateUp: () -> Unit,
 ) {
     val screenFactory = ScreenFactory(viewModel)
 
@@ -71,9 +72,13 @@ fun QuestCreateScreen(
             next = {
                 screenList[screenIndex].complete()
                 viewModel.next()
-                   },
+            },
             prev = { viewModel.previous() },
-            save = { viewModel.save() },
+            save = {
+                screenList[screenIndex].complete()
+                viewModel.save()
+                navigateUp()
+            },
             modifier = Modifier
                 .fillMaxWidth(),
         )
