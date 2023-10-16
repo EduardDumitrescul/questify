@@ -52,9 +52,11 @@ class QuestTargetScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     OutlinedTextField(
-                        value = target.toString(),
+                        value = if(target == 0) "" else target.toString(),
                         onValueChange = {
-                            if(it.startsWith("0")) {
+                            if(it.isEmpty()) {
+                                updateTarget(0)
+                            } else if(it.startsWith("0")) {
                                 updateTarget(0)
                             } else if(it.isDigitsOnly()) {
                                 updateTarget(it.toInt())
