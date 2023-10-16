@@ -28,12 +28,11 @@ fun QuestCreateScreen(
     viewModel: QuestCreateViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val screenList = ScreenFactory(viewModel).getSequence(
-        listOf(
-            ScreenFactory.SCREENS.NAME_INPUT,
-            ScreenFactory.SCREENS.TARGET_INPUT,
-            ScreenFactory.SCREENS.TIMELIMIT_INPUT
-        )
+    val screenFactory = ScreenFactory(viewModel)
+
+    val screenList = listOf(
+        screenFactory.getScreen(ScreenFactory.SCREENS.DEFINE),
+        screenFactory.getScreen(ScreenFactory.SCREENS.TARGET),
     )
 
     val screenIndex by viewModel.screenIndex.collectAsState()
@@ -63,13 +62,16 @@ fun QuestCreateScreen(
 
             label = "Sequential Screens Slide"
         ) {
-            screenList[it]()
+            screenList[it].Screen()
         }
         Spacer(modifier = Modifier.weight(1f))
         BottomBar(
             isFirst = screenIndex == 0,
             isLast = screenIndex == screenList.lastIndex,
-            next = { viewModel.next() },
+            next = {
+                screenList[screenIndex].complete()
+                viewModel.next()
+                   },
             prev = { viewModel.previous() },
             save = { viewModel.save() },
             modifier = Modifier
