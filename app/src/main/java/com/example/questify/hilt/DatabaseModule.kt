@@ -28,7 +28,9 @@ class DatabaseModule {
             appContext,
             QuestDatabase::class.java,
             "QuestDatabase"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

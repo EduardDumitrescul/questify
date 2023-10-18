@@ -24,13 +24,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.questify.data.models.QuestModel
 import com.example.questify.R
+import com.example.questify.data.models.ProgressStatus
 import com.example.questify.data.models.Status
 import java.util.UUID
 
 @Composable
 fun QuestCard(
     modifier: Modifier = Modifier,
-    quest: QuestModel = QuestModel(),
+    quest: QuestModel,
     onClick: (UUID) -> Unit = {},
 ) {
     val state = remember {
@@ -50,7 +51,7 @@ fun QuestCard(
 @Composable
 fun QuestCardStateless(
     modifier: Modifier = Modifier,
-    state: QuestCardState = QuestCardState(),
+    state: QuestCardState,
 ) {
     ElevatedCard(
         modifier = modifier
@@ -75,9 +76,9 @@ fun QuestCardStateless(
                     modifier = Modifier.testTag("Quest Name")
                 )
                 when(state.quest.getPredictedStatus()) {
-                    Status.NO_LIMIT -> GreyStatusToken()
-                    Status.AHEAD -> GreenStatusToken()
-                    Status.BEHIND -> RedStatusToken()
+                    ProgressStatus.NO_LIMIT -> GreyStatusToken()
+                    ProgressStatus.AHEAD -> GreenStatusToken()
+                    ProgressStatus.BEHIND -> RedStatusToken()
                     else -> YellowStatusToken()
                 }
             }
@@ -109,7 +110,7 @@ fun QuestCardStateless(
 
 @Stable
 class QuestCardState(
-    var quest: QuestModel = QuestModel(),
+    var quest: QuestModel,
     val onClick: (UUID) -> Unit = {},
 ) {
  }
@@ -117,31 +118,31 @@ class QuestCardState(
 @Preview(showBackground = true)
 @Composable
 fun QuestCardPreview() {
-    QuestCard(quest = QuestModel(name = "Quest Name"))
+    QuestCard(quest = QuestModel(name = "Quest Name", status = Status.ACTIVE))
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreyStatusToken() {
-    StatusToken(color = Color.Gray, text = Status.NO_LIMIT.text)
+    StatusToken(color = Color.Gray, text = ProgressStatus.NO_LIMIT.text)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreenStatusToken() {
-    StatusToken(color = Color.Green, text = Status.AHEAD.text)
+    StatusToken(color = Color.Green, text = ProgressStatus.AHEAD.text)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun YellowStatusToken() {
-    StatusToken(color = Color.Yellow, Status.ON_TARGET.text)
+    StatusToken(color = Color.Yellow, ProgressStatus.ON_TARGET.text)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun RedStatusToken() {
-    StatusToken(color = Color.Red, text = Status.BEHIND.text)
+    StatusToken(color = Color.Red, text = ProgressStatus.BEHIND.text)
 }
 
 @Composable

@@ -3,6 +3,7 @@ package com.example.questify.ui.create
 import androidx.lifecycle.ViewModel
 import com.example.questify.data.QuestRepository
 import com.example.questify.data.models.QuestModel
+import com.example.questify.data.models.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -14,7 +15,7 @@ class QuestCreateViewModel @Inject constructor(
 ): ViewModel() {
     var screenIndex = MutableStateFlow(0)
         private set
-    var quest = MutableStateFlow(QuestModel())
+    var quest = MutableStateFlow(QuestModel(status = Status.ACTIVE))
         private set
 
     fun setName(name: String) {

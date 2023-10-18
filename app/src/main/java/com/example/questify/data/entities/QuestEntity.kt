@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.example.questify.data.models.QuestModel
+import com.example.questify.data.models.Status
 import java.time.LocalDate
 import java.util.UUID
 
@@ -17,6 +18,7 @@ data class QuestEntity(
     val timeLimit: Int?,
     val endDate: LocalDate?,
     val targetReps: Int,
+    val status: Status,
 )
 
 data class QuestCompleteEntity(
@@ -36,6 +38,7 @@ fun QuestModel.toEntity() = QuestEntity(
     timeLimit = timeLimit,
     endDate = endDate,
     targetReps = targetReps,
+    status = status,
 )
 
 fun QuestEntity.toModel() = QuestModel(
@@ -46,6 +49,7 @@ fun QuestEntity.toModel() = QuestModel(
     timeLimit = timeLimit,
     endDate = endDate,
     targetReps = targetReps,
+    status = status,
 )
 
 fun QuestCompleteEntity.toModel() = questEntity.toModel().apply {

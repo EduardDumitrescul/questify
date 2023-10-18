@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import com.example.questify.data.models.QuestModel
+import com.example.questify.data.models.Status
 import com.example.questify.ui.FieldRow
 import com.example.questify.ui.dialogs.NumberInputDialog
 import com.example.questify.ui.dialogs.PeriodInputDialog
@@ -138,7 +139,7 @@ class AddQuestBottomSheetState(
     val onSave: (QuestModel) -> Unit,
 ) {
 
-    val quest by mutableStateOf(QuestModel())
+    val quest by mutableStateOf(QuestModel(status = Status.ACTIVE))
     var showNameTextInputDialog by mutableStateOf(false)
     var onNameFieldClick: () -> Unit = {
         showNameTextInputDialog = true

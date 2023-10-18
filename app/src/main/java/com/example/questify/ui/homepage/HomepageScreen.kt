@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.questify.data.models.QuestModel
+import com.example.questify.data.models.Status
 import com.example.questify.ui.cards.QuestCard
 import java.util.UUID
 
@@ -112,7 +113,7 @@ class HomepageScreenState(
 @Composable
 fun HomepageScreenPreview() {
     val state = HomepageScreenState(
-        quests = mutableListOf(QuestModel(), QuestModel()),
+        quests = mutableListOf(QuestModel(status = Status.ACTIVE), QuestModel(status = Status.ACTIVE)),
         addQuest = {}
     )
     HomepageScreenStateless(state = state)

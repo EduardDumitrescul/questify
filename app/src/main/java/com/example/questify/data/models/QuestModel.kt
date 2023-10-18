@@ -16,6 +16,7 @@ data class QuestModel (
     var endDate: LocalDate? = null,
     var targetReps: Int = 20,
     var entryList: MutableList<EntryModel> = mutableListOf(),
+    var status: Status,
 ) {
     fun addEntry(entry: EntryModel) {
         entryList.add(entry)
@@ -40,23 +41,23 @@ data class QuestModel (
         return timeLimit?.minus(getTimePassed())
     }
 
-    fun getPredictedStatus(): Status {
+    fun getPredictedStatus(): ProgressStatus {
         if(timeLimit == null) {
-            return Status.NO_LIMIT
+            return ProgressStatus.NO_LIMIT
         }
         if(currentReps == 0 && getTimePassed() >= timeLimit!! / targetReps) {
-            return Status.BEHIND
+            return ProgressStatus.BEHIND
         }
         if(currentReps == 0) {
-            return Status.ON_TARGET
+            return ProgressStatus.ON_TARGET
         }
 
         val daysToComplete = predictDaysToComplete()
 
         return when {
-            timeLimit!! / daysToComplete > Status.AHEAD.threshold -> Status.AHEAD
-            timeLimit!! / daysToComplete > Status.ON_TARGET.threshold -> Status.ON_TARGET
-            else -> Status.BEHIND
+            timeLimit!! / daysToComplete > ProgressStatus.AHEAD.threshold -> ProgressStatus.AHEAD
+            timeLimit!! / daysToComplete > ProgressStatus.ON_TARGET.threshold -> ProgressStatus.ON_TARGET
+            else -> ProgressStatus.BEHIND
         }
     }
 
@@ -94,7 +95,13 @@ data class QuestModel (
 
 }
 
-enum class Status(val text: String, val threshold: Double) {
+enum class Status(val id: Int, val text: String) {
+    ACTIVE(0, "active"),
+    ARCHIVED(1, "archived"),
+    COMPLETED(2, "completed"),
+}
+
+enum class ProgressStatus(val text: String, val threshold: Double) {
     NO_LIMIT("no limit set", 0.0),
     AHEAD("ahead", 1.2),
     ON_TARGET("on target", 0.8),
