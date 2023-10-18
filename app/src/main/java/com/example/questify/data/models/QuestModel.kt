@@ -9,14 +9,14 @@ import kotlin.math.max
 
 data class QuestModel (
     val id: UUID = UUID.randomUUID(),
-    var name: String = "Base Quest",
+    var name: String = "",
     var description: String = "",
     val startDate: LocalDate = LocalDate.now(),
     var timeLimit: Int? = null,
     var endDate: LocalDate? = null,
-    var targetReps: Int = 20,
+    var targetReps: Int = 0,
     var entryList: MutableList<EntryModel> = mutableListOf(),
-    var status: Status,
+    var status: Status = Status.ACTIVE,
 ) {
     fun addEntry(entry: EntryModel) {
         entryList.add(entry)
