@@ -20,6 +20,11 @@ data class QuestModel (
 ) {
     fun addEntry(entry: EntryModel) {
         entryList.add(entry)
+
+        if(currentReps >= targetReps) {
+            status = Status.COMPLETED
+            endDate = LocalDate.now()
+        }
     }
 
     val currentReps:Int get() { return entryList.size}
